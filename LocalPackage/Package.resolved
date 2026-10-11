@@ -1,51 +1,51 @@
 {
-  "originHash": "a78b65052378e14304f6f825a72e0ebe519cd9efc4e0ec2476cb15ffbbcbf4dc",
-  "pins": [
+  "originHash" : "ed78f326d8d9990637ee169408069838dcabce0907de16ef6b058c769bb8b92c",
+  "pins" : [
     {
-      "identity": "allocatedunfairlock",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/Kyome22/AllocatedUnfairLock.git",
-      "state": {
-        "revision": "bf1fa2b1b6a449fd1f8adf2d846feb5fab7734ca",
-        "version": "1.0.0"
+      "identity" : "allocatedunfairlock",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kyome22/AllocatedUnfairLock.git",
+      "state" : {
+        "revision" : "bf1fa2b1b6a449fd1f8adf2d846feb5fab7734ca",
+        "version" : "1.0.0"
       }
     },
     {
-      "identity": "swift-async-algorithms",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/apple/swift-async-algorithms.git",
-      "state": {
-        "revision": "13713a4ffdee8abd929f92568ee9462a46ae26e0",
-        "version": "1.1.7"
+      "identity" : "swift-async-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-async-algorithms.git",
+      "state" : {
+        "revision" : "13713a4ffdee8abd929f92568ee9462a46ae26e0",
+        "version" : "1.1.7"
       }
     },
     {
-      "identity": "swift-collections",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/apple/swift-collections.git",
-      "state": {
-        "revision": "98ef3c98609a1e31b7e157b5b619579001a789d6",
-        "version": "1.7.1"
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "98ef3c98609a1e31b7e157b5b619579001a789d6",
+        "version" : "1.7.1"
       }
     },
     {
-      "identity": "swift-log",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/apple/swift-log.git",
-      "state": {
-        "revision": "9c6fb14227f55d8f711ce3847dc2f419fb0ecacb",
-        "version": "1.15.1"
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "4038b6a4f74a1426f47eb1dd5b4bb5628a15d597",
+        "version" : "1.16.1"
       }
     },
     {
-      "identity": "systeminfokit",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/Kyome22/SystemInfoKit.git",
-      "state": {
-        "revision": "56bfde260431e8c0270137f409f8e8c9de04bbec",
-        "version": "7.2.2"
+      "identity" : "systeminfokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kyome22/SystemInfoKit.git",
+      "state" : {
+        "revision" : "56bfde260431e8c0270137f409f8e8c9de04bbec",
+        "version" : "7.2.2"
       }
     }
   ],
-  "version": 3
+  "version" : 3
 }
