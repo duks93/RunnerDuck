@@ -1,0 +1,62 @@
+{
+  "created": "2026-10-06",
+  "tool": {
+    "name": "sprite-gen",
+    "version": "2.35.0",
+    "commit": "47e985b6320eb000e587632c2cd62a98b1bc5c99",
+    "repository": "https://github.com/aldegad/sprite-gen"
+  },
+  "environment": {
+    "python": "3.14",
+    "Pillow": "12.3.0",
+    "numpy": "2.5.3",
+    "isolation": "sprite-gen dedicated .venv"
+  },
+  "provider": "codex (ChatGPT login, no API key committed)",
+  "generationModel": "gpt-6.1-sol via sprite-gen gen-set for four new component images; existing icon retained",
+  "reference": {
+    "file": "style-reference.png",
+    "origin": "User-supplied drawing",
+    "sha256": "c9b95915704ed7bd015be8223417ac47fddc04581193b105443f4a156a9b2cb8"
+  },
+  "design": "Long pointed bill, small head, black ring eye, bean body, thin legs, large black feet; yellow/orange app icon; ink-only theme-tinted runner.",
+  "motion": {
+    "version": 2,
+    "method": "GPT-generated cutouts + authored fixed-length biped rig + sprite-gen affine curation and compose-layers",
+    "recipe": "../../scripts/artwork/build_duck_rig.py",
+    "config": "motion-config.json",
+    "poses": "rig-poses.json",
+    "transitionMilliseconds": 300,
+    "wraparoundIncluded": true,
+    "headMotion": "Independent neck rotation with phase-lagged rigid torso motion; no breathing deformation",
+    "manualSteps": [
+      "component pivot selection and hidden neck-cap mask",
+      "foot contact and recovery trajectories",
+      "two-bone inverse kinematics",
+      "joint-target transition interpolation"
+    ],
+    "generatedComponents": "parts/generation-report.json"
+  },
+  "pipeline": [
+    "prepare",
+    "gen-set (4 new component images)",
+    "extract (bbox-centered, no pixel-unfake or ground fitting)",
+    "authored rig and sprite-gen PNG import",
+    "sprite-gen affine curation",
+    "sprite-gen compose-layers",
+    "3x downsample and ink-alpha export",
+    "motion and native rendering verification"
+  ],
+  "runtime": {
+    "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Duck/duck-atlas.png",
+    "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Duck/animation.json",
+    "conversion": "Dark ink alpha; 2/3 px stroke expansion at 3x resolution then Lanczos downsample. Transition endpoints reuse loop phase zero; 18 frames at 60 fps.",
+    "atlasSha256": "3264d15dc8c8d87ad29658ccf52ea8fab1c4ffe330dcbfdab306a40a61ad7d94"
+  },
+  "excluded": [
+    "raw generation caches",
+    "provider sessions and authentication",
+    "build artifacts"
+  ],
+  "sourceCheckpoint": "b219db2b2fd4bdae01f4e6f3892cb219b7def6cc"
+}

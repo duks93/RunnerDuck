@@ -1,0 +1,61 @@
+/*
+ ErrorEvent.swift
+ DataSource
+
+ Created by Takuto Nakamura on 2026/05/05.
+ Copyright 2026 Kyome22 (Takuto Nakamura)
+ Modified for RunnerDuck by duks93, 2026.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+import Logging
+
+public enum ErrorEvent {
+    case enablingLaunchAtLoginFailed(any Error)
+    case fetchingAIUsageFailed(String, any Error)
+    case importingCustomMetricsSourceFailed(any Error)
+    case importingFrameImagesFailed(any Error)
+    case savingAIUsageSnapshotFailed(any Error)
+    case switchingRunnerFailed(any Error)
+
+    public var message: Logger.Message {
+        switch self {
+        case .enablingLaunchAtLoginFailed:
+            "Failed enabling launch at login."
+        case .fetchingAIUsageFailed:
+            "Failed fetching AI usage."
+        case .importingCustomMetricsSourceFailed:
+            "Failed importing custom metrics source."
+        case .importingFrameImagesFailed:
+            "Failed importing frame images."
+        case .savingAIUsageSnapshotFailed:
+            "Failed saving AI usage snapshot."
+        case .switchingRunnerFailed:
+            "Failed switching runner."
+        }
+    }
+
+    public var metadata: Logger.Metadata? {
+        switch self {
+        case let .fetchingAIUsageFailed(source, error):
+            ["source": "\(source)", "cause": "\(error)"]
+        case let .enablingLaunchAtLoginFailed(error),
+            let .importingCustomMetricsSourceFailed(error),
+            let .importingFrameImagesFailed(error),
+            let .savingAIUsageSnapshotFailed(error),
+            let .switchingRunnerFailed(error):
+            ["cause": "\(error.localizedDescription)"]
+        }
+    }
+}

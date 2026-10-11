@@ -1,0 +1,137 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - run: python -m pip install Pillow==12.3.0
+      - name: Validate Windows installer syntax
+        shell: pwsh
+        run: |
+          foreach ($path in @('install.ps1', 'Windows/Install-RunnerDuck.ps1', 'Windows/InstallerComponents.ps1', 'Windows/InstallerPrerequisites.ps1', 'Windows/Test-InstallerComponents.ps1', 'Windows/Test-InstallerFlow.ps1', 'Windows/New-OfflineBundle.ps1', 'Windows/Test-UpdateBuild.ps1')) {
+            $parseTokens = $null
+            $parseErrors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseFile(
+              (Join-Path $PWD $path), [ref]$parseTokens, [ref]$parseErrors)
+            if ($parseErrors.Count -gt 0) { throw ($parseErrors | Out-String) }
+          }
+      - run: pwsh -File Windows/Test-InstallerComponents.ps1
+      - run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File Windows/Test-InstallerFlow.ps1
+      - run: python scripts/verify_repository.py
+      - run: python -m unittest discover -s scripts -p 'test_update_manifest.py'
+      - run: python scripts/verify_assets.py
+      - run: dotnet test Windows/RunnerDuck.Core.Tests -c Release --logger trx --results-directory artifacts/tests-core
+      - run: dotnet test Windows/RunnerDuck.AIUsage.Tests -c Release --logger trx --results-directory artifacts/tests-ai
+      - run: dotnet test Windows/RunnerDuck.App.Tests -c Release --logger trx --results-directory artifacts/tests-app
+      - run: dotnet build Windows/RunnerDuck.Desktop -c Release -p:Platform=x64 -p:WindowsAppSDKSelfContained=true
+      - name: Verify revision metadata in the offline installer
+        shell: pwsh
+        run: ./Windows/Test-UpdateBuild.ps1 -ExpectedCommit $env:GITHUB_SHA
+      - name: Render cached animation with Windows tray code
+        shell: pwsh
+        run: |
+          $app = Get-ChildItem Windows/RunnerDuck.Desktop/bin/x64/Release -Filter RunnerDuck.exe -Recurse | Select-Object -First 1
+          $process = Start-Process -FilePath $app.FullName -ArgumentList '--verify-animation', "$pwd/artifacts/windows-render" -WindowStyle Hidden -PassThru -Wait
+          if ($process.ExitCode -ne 0) { throw "Animation renderer exited $($process.ExitCode)" }
+          if (-not (Test-Path artifacts/windows-render/result.json)) { throw 'No rendering result was produced.' }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-validation
+          path: artifacts/
+
+  macos:
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v6
+      - name: Select installed Xcode 26
+        run: |
+          XCODE=$(python3 -c 'import pathlib,re; paths=list(pathlib.Path("/Applications").glob("Xcode_26*.app")); print(max(paths,key=lambda p:tuple(map(int,re.findall(r"\d+",p.name)))))')
+          sudo xcode-select -s "$XCODE/Contents/Developer"
+          xcodebuild -version
+      - name: Unit tests and AppKit animation rendering
+        env:
+          RUNNERDUCK_RENDER_DIR: /tmp/RunnerDuckRenderValidation
+        run: |
+          set -o pipefail
+          mkdir -p artifacts
+          xcodebuild test -scheme LocalPackage-Package -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$PWD/artifacts/mac-tests" -resultBundlePath "$PWD/artifacts/tests.xcresult" \
+            -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO 2>&1 | tee artifacts/mac-tests.log | xcbeautify
+        working-directory: LocalPackage
+      - name: Collect AppKit animation contact sheets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          source = Path('/tmp/RunnerDuckRenderValidation')
+          expected = {'idle', 'walk', 'run', 'idle_to_walk', 'walk_to_idle', 'walk_to_run', 'run_to_walk'}
+          actual = {path.stem for path in source.glob('*.png')}
+          if actual != expected:
+              raise SystemExit(f'Missing AppKit rendering output: {expected - actual}')
+          filled = {path.stem for path in (source / 'duck-filled').glob('*.png')}
+          if filled != expected:
+              raise SystemExit(f'Missing filled duck rendering output: {expected - filled}')
+          shutil.copytree(source, 'artifacts/macos-render', dirs_exist_ok=True)
+          PY
+      - name: Build and install app and widget
+        run: |
+          set -o pipefail
+          mkdir -p artifacts
+          bash -n install.sh
+          bash install.sh --no-launch | tee artifacts/mac-install.log
+      - name: Verify updating the installed macOS app
+        run: bash install.sh --no-launch
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macos-validation
+          path: |
+            artifacts/macos-render/
+            artifacts/mac-build.log
+            artifacts/mac-install.log
+            LocalPackage/artifacts/mac-tests.log
+            LocalPackage/artifacts/tests.xcresult/
+
+  publish-update:
+    needs: [windows, macos]
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    concurrency:
+      group: runnerduck-updates
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Publish validated update information to Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          VALIDATED_SHA: ${{ github.sha }}
+        run: bash scripts/publish_update.sh

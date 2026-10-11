@@ -1,0 +1,32 @@
+RunnerDuck
+Copyright 2026 duks93 (RunnerDuck modifications and new animation code)
+
+This product includes software derived from:
+
+RunCatNeo / RunCat Neo
+Copyright 2026 Kyome22 (Takuto Nakamura)
+https://github.com/runcat-dev/RunCatNeo
+Preserved Windows/macOS source checkpoint:
+https://github.com/duks93/RunCatNeo/commit/b219db2b2fd4bdae01f4e6f3892cb219b7def6cc
+Licensed under the Apache License, Version 2.0.
+
+RunCat365 / RunCat 365
+Copyright 2025 Takuto Nakamura
+https://github.com/runcat-dev/RunCat365
+Tray animation, recoloring, startup integration, and Windows system metric code
+were adapted under the Apache License, Version 2.0.
+
+Modifications by duks93, 2026: Windows integration, AI usage and widget features,
+RunnerDuck product identities, independent settings, duck assets, CPU-driven
+motion states, and shared cached animation playback. Original source copyright
+notices and licenses are retained. Original character art and promotional
+materials are not distributed. RunnerDuck is a modified derivative and is not
+endorsed by the upstream authors.
+
+Windows App SDK widget sample COM registration code:
+Copyright (c) Microsoft Corporation. Licensed under the MIT License.
+https://github.com/microsoft/WindowsAppSDK-Samples
+
+The RunnerDuck duck artwork was generated with sprite-gen 2.35.0 and GPT,
+using a user-supplied visual reference. See artwork/duck/provenance.json.
+sprite-gen is a build-time tool, not a runtime dependency.

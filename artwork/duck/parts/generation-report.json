@@ -1,0 +1,38 @@
+{
+  "torso": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "elapsed_seconds": 36.77,
+    "raw_bytes": 1203925,
+    "rawSha256": "2b09f9d6e84bd77d2a471028ead01602b6f4ef1c5d75c7648bd4ac3092616dde",
+    "extractedSha256": "1d19ffea716a9c5af0332d23a3a3e553a0aba6f356f5baf109dfa5f753bce6bf"
+  },
+  "head": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "elapsed_seconds": 66.192,
+    "raw_bytes": 1220845,
+    "rawSha256": "a69ebf7f0691a27e04cf9314db7bc69e2ee837f73519a80ac529bf4b5bbeaf5f",
+    "extractedSha256": "6f55bf6fed27263874c8261de839a7b1ef6b9e049f892f679357fbfa4ee8c23c"
+  },
+  "leg": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "elapsed_seconds": 54.781,
+    "raw_bytes": 1184554,
+    "rawSha256": "1f2176196cc656ddfa633992cb3091a196f48488906e39fa0debf58da0ebbbd0",
+    "extractedSha256": "fb3a7c27d681d89e5143728697301f61428a4fe1b4f4377fb1c07ad0da009dc6"
+  },
+  "foot": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "elapsed_seconds": 40.884,
+    "raw_bytes": 1169438,
+    "rawSha256": "08cf30df2b9a404401a5bbadc288af4915d4c1a8ec0b0dd0fd2f8212e17e363a",
+    "extractedSha256": "d33b826868b89eeb291714ac8a9c989dbc38e22f2debc1d03f6778fbb450976b"
+  }
+}

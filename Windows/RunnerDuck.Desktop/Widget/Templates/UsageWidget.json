@@ -1,0 +1,302 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.6",
+    "body": [
+        {
+            "type": "TextBlock",
+            "$when": "${hasMessage}",
+            "text": "${message}",
+            "size": "small",
+            "isSubtle": true,
+            "wrap": true
+        },
+        {
+            "type": "Container",
+            "$when": "${$host.widgetSize == \"small\"}",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "$data": "${smallRows}",
+                    "spacing": "small",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "width": "stretch",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "${title}",
+                                    "size": "small",
+                                    "weight": "bolder",
+                                    "maxLines": 1
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "auto",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "${compact}",
+                                    "size": "small",
+                                    "color": "${statusColor}",
+                                    "maxLines": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "$when": "${$host.widgetSize == \"medium\"}",
+            "items": [
+                {
+                    "type": "Container",
+                    "$data": "${mediumRows}",
+                    "spacing": "medium",
+                    "items": [
+                        {
+                            "type": "ColumnSet",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${title}",
+                                            "size": "small",
+                                            "weight": "bolder",
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "$when": "${!isAvailable}",
+                                    "width": "auto",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${status}",
+                                            "size": "small",
+                                            "color": "${statusColor}"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ColumnSet",
+                            "$data": "${windows}",
+                            "spacing": "none",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "48px",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${label}",
+                                            "size": "small",
+                                            "isSubtle": true,
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "ColumnSet",
+                                            "columns": [
+                                                {
+                                                    "type": "Column",
+                                                    "$when": "${hasRemaining}",
+                                                    "width": "${remainingWeight}",
+                                                    "style": "${barStyle}",
+                                                    "minHeight": "6px",
+                                                    "items": []
+                                                },
+                                                {
+                                                    "type": "Column",
+                                                    "$when": "${hasUsed}",
+                                                    "width": "${usedWeight}",
+                                                    "style": "emphasis",
+                                                    "minHeight": "6px",
+                                                    "spacing": "none",
+                                                    "items": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "40px",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${remainingText}",
+                                            "size": "small",
+                                            "horizontalAlignment": "right",
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "$when": "${$host.widgetSize == \"large\"}",
+            "items": [
+                {
+                    "type": "Container",
+                    "$data": "${largeRows}",
+                    "spacing": "medium",
+                    "items": [
+                        {
+                            "type": "ColumnSet",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${title}",
+                                            "size": "small",
+                                            "weight": "bolder",
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "$when": "${!isAvailable}",
+                                    "width": "auto",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${status}",
+                                            "size": "small",
+                                            "color": "${statusColor}"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ColumnSet",
+                            "$data": "${windows}",
+                            "spacing": "none",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "48px",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${label}",
+                                            "size": "small",
+                                            "isSubtle": true,
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "ColumnSet",
+                                            "columns": [
+                                                {
+                                                    "type": "Column",
+                                                    "$when": "${hasRemaining}",
+                                                    "width": "${remainingWeight}",
+                                                    "style": "${barStyle}",
+                                                    "minHeight": "6px",
+                                                    "items": []
+                                                },
+                                                {
+                                                    "type": "Column",
+                                                    "$when": "${hasUsed}",
+                                                    "width": "${usedWeight}",
+                                                    "style": "emphasis",
+                                                    "minHeight": "6px",
+                                                    "spacing": "none",
+                                                    "items": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "40px",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${remainingText}",
+                                            "size": "small",
+                                            "horizontalAlignment": "right",
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "72px",
+                                    "verticalContentAlignment": "center",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "${resetText}",
+                                            "size": "small",
+                                            "isSubtle": true,
+                                            "horizontalAlignment": "right",
+                                            "maxLines": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "TextBlock",
+            "$when": "${hasLastUpdated && $host.widgetSize != \"small\"}",
+            "text": "${lastUpdated}",
+            "size": "small",
+            "isSubtle": true,
+            "horizontalAlignment": "right",
+            "spacing": "small"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Execute",
+            "$when": "${$host.widgetSize == \"large\"}",
+            "title": "${refreshTitle}",
+            "verb": "refresh"
+        }
+    ]
+}

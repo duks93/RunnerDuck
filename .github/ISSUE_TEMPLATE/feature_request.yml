@@ -1,0 +1,11 @@
+name: Feature request
+description: Suggest a RunnerDuck improvement.
+title: "[Feature] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and expected behavior
+      description: Describe who benefits and how the feature should work on Windows and macOS.
+    validations:
+      required: true

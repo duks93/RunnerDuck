@@ -1,0 +1,30 @@
+# Mac
+.DS_Store
+
+# Xcode
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Test
+DerivedData/
+TestResults/
+
+# .NET (Windows widget)
+Windows/**/bin/
+Windows/**/obj/
+Windows/**/AppPackages/
+Windows/.vs/
+*.csproj.user
+
+# Local sprite generation and verification
+.sprite-work/
+.venv/
+artifacts/
+__pycache__/
+*.pyc
+*.raw.png

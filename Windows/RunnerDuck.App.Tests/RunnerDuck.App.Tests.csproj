@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>RunnerDuck.App</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <Using Include="Xunit" />
+    <ProjectReference Include="..\RunnerDuck.Core\RunnerDuck.Core.csproj" />
+    <Compile Include="..\RunnerDuck.Desktop\Tray\MetricsTrayIcons.cs" Link="Tray\MetricsTrayIcons.cs" />
+    <Compile Include="..\RunnerDuck.Desktop\Tray\BitmapExtensions.cs" Link="Tray\BitmapExtensions.cs" />
+    <Compile Include="..\RunnerDuck.Desktop\Tray\DuckAssets.cs" Link="Tray\DuckAssets.cs" />
+    <Compile Include="..\RunnerDuck.Desktop\AppMenu.cs" Link="AppMenu.cs" />
+    <Compile Include="..\RunnerDuck.Desktop\InstalledComponents.cs" Link="InstalledComponents.cs" />
+    <Compile Include="..\RunnerDuck.Desktop\Settings\TrayLaunchAtLogin.cs" Link="Settings\TrayLaunchAtLogin.cs" />
+    <EmbeddedResource Include="..\RunnerDuck.Desktop\Properties\Strings.resx" Link="Properties\Strings.resx">
+      <StronglyTypedFileName>$(IntermediateOutputPath)Strings.Designer.cs</StronglyTypedFileName>
+      <StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+      <StronglyTypedNamespace>RunnerDuck.App.Properties</StronglyTypedNamespace>
+      <StronglyTypedClassName>Strings</StronglyTypedClassName>
+    </EmbeddedResource>
+    <Content Include="..\..\LocalPackage\Sources\UserInterface\Resources\Duck\*" LinkBase="Duck" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Quit" xml:space="preserve">
+    <value>Quit {0}</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="OpenTaskManager" xml:space="preserve">
+    <value>Open Task Manager</value>
+  </data>
+  <data name="ReportIssue" xml:space="preserve">
+    <value>Report Issue</value>
+  </data>
+  <data name="OpenSourceLicense" xml:space="preserve">
+    <value>Open Source Licenses</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Runner" xml:space="preserve">
+    <value>Runner</value>
+  </data>
+  <data name="CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="Memory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="Battery" xml:space="preserve">
+    <value>Battery</value>
+  </data>
+  <data name="Network" xml:space="preserve">
+    <value>Network</value>
+  </data>
+<data name="RunnerDog" xml:space="preserve">
+    <value>Dog</value>
+  </data>
+<data name="RunnerDrop" xml:space="preserve">
+    <value>Drop</value>
+  </data>
+<data name="RunnerNewtonCradle" xml:space="preserve">
+    <value>Newton's Cradle</value>
+  </data>
+<data name="RunnerMochi" xml:space="preserve">
+    <value>Mochi</value>
+  </data>
+  <data name="DetailSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="DetailUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="DetailIdle" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="DetailUsed" xml:space="preserve">
+    <value>Used</value>
+  </data>
+  <data name="DetailAvailable" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="DetailTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="DetailCharging" xml:space="preserve">
+    <value>Charging</value>
+  </data>
+  <data name="DetailPluggedIn" xml:space="preserve">
+    <value>Plugged in</value>
+  </data>
+  <data name="DetailOnBattery" xml:space="preserve">
+    <value>On battery</value>
+  </data>
+  <data name="DetailIPAddress" xml:space="preserve">
+    <value>IP address</value>
+  </data>
+  <data name="DetailUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="DetailDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="BatteryNotInstalled" xml:space="preserve">
+    <value>No battery</value>
+  </data>
+  <data name="NetworkDisconnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="NetworkWiFi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="NetworkEthernet" xml:space="preserve">
+    <value>Ethernet</value>
+  </data>
+  <data name="NetworkCellular" xml:space="preserve">
+    <value>Cellular</value>
+  </data>
+  <data name="NetworkOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OpenSourceLicenseDescription" xml:space="preserve">
+    <value>RunnerDuck is an open-source software.</value>
+  </data>
+  <data name="RunnerLoadingFailed" xml:space="preserve">
+    <value>Failed to load the runner. The duck runner is used instead.</value>
+  </data>
+  <data name="GeneralTab" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="RunnerTab" xml:space="preserve">
+    <value>Runner</value>
+  </data>
+  <data name="MetricsTab" xml:space="preserve">
+    <value>Metrics</value>
+  </data>
+  <data name="Launch" xml:space="preserve">
+    <value>Launch</value>
+  </data>
+  <data name="LaunchAtLogin" xml:space="preserve">
+    <value>Launch RunnerDuck automatically at login</value>
+  </data>
+  <data name="LaunchAtLoginTurnOnInTaskManager" xml:space="preserve">
+    <value>Turned off in Task Manager &gt; Startup apps. Turn it on there to launch at login.</value>
+  </data>
+  <data name="LaunchAtLoginManagedByPolicy" xml:space="preserve">
+    <value>Managed by your organization's policy.</value>
+  </data>
+  <data name="LaunchAtLoginUnavailable" xml:space="preserve">
+    <value>Launch at login is currently unavailable.</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Monitoring</value>
+  </data>
+  <data name="UpdateInterval" xml:space="preserve">
+    <value>Update Interval</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>{0} s</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SlowDownUnderLoad" xml:space="preserve">
+    <value>Slow down under load</value>
+  </data>
+  <data name="FlipHorizontally" xml:space="preserve">
+    <value>Flip horizontally</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="SystemMetrics" xml:space="preserve">
+    <value>System Metrics</value>
+  </data>
+  <data name="EnableMemoryUsageMonitoring" xml:space="preserve">
+    <value>Enable Memory Usage Monitoring</value>
+  </data>
+  <data name="EnableStorageCapacityMonitoring" xml:space="preserve">
+    <value>Enable Storage Capacity Monitoring</value>
+  </data>
+  <data name="EnableBatteryStatusMonitoring" xml:space="preserve">
+    <value>Enable Battery Status Monitoring</value>
+  </data>
+  <data name="EnableNetworkConnectivityMonitoring" xml:space="preserve">
+    <value>Enable Network Connectivity Monitoring</value>
+  </data>
+  <data name="MetricsBar" xml:space="preserve">
+    <value>Metrics Bar</value>
+  </data>
+  <data name="ShowMetricsBar" xml:space="preserve">
+    <value>Show Metrics Bar</value>
+  </data>
+  <data name="MetricsBarWindowsNote" xml:space="preserve">
+    <value>Each selected metric appears as its own icon in the taskbar notification area. New icons may be hidden under the ^ button; drag them onto the taskbar to keep them visible.</value>
+  </data>
+  <data name="AIUsage" xml:space="preserve">
+    <value>AI Usage</value>
+  </data>
+  <data name="AIUsageDetected" xml:space="preserve">
+    <value>Sign-in detected</value>
+  </data>
+  <data name="AIUsageNotDetected" xml:space="preserve">
+    <value>No sign-in found</value>
+  </data>
+  <data name="AIUsageSettingsFooter" xml:space="preserve">
+    <value>Sources with a detected sign-in are on by default. opencodex shows its extra pool accounts while its proxy is running.</value>
+  </data>
+  <data name="CustomRunners" xml:space="preserve">
+    <value>Custom Runners</value>
+  </data>
+  <data name="AddCustomRunner" xml:space="preserve">
+    <value>Add Custom Runner</value>
+  </data>
+  <data name="CustomRunnerEditor" xml:space="preserve">
+    <value>Custom Runner Editor</value>
+  </data>
+  <data name="RunnerName" xml:space="preserve">
+    <value>Runner Name</value>
+  </data>
+  <data name="RenderingMode" xml:space="preserve">
+    <value>Rendering Mode</value>
+  </data>
+  <data name="Monochrome" xml:space="preserve">
+    <value>Monochrome</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Frames" xml:space="preserve">
+    <value>Frames</value>
+  </data>
+  <data name="AddFrame" xml:space="preserve">
+    <value>Add Frame</value>
+  </data>
+  <data name="DeleteFrame" xml:space="preserve">
+    <value>Delete Selected Frame</value>
+  </data>
+  <data name="FrameRequirements" xml:space="preserve">
+    <value>1. Format: PNG
+2. Height: 36px
+3. Width: 10~100px</value>
+  </data>
+  <data name="DropFramesHint" xml:space="preserve">
+    <value>Drop PNG files here or choose Add Frame.</value>
+  </data>
+  <data name="PreviewSpeed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Move Up</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Move Down</value>
+  </data>
+  <data name="NameEmpty" xml:space="preserve">
+    <value>Enter a runner name.</value>
+  </data>
+  <data name="NameAlreadyExists" xml:space="preserve">
+    <value>The specified runner name already exists.</value>
+  </data>
+  <data name="NoFrames" xml:space="preserve">
+    <value>Add at least one frame.</value>
+  </data>
+  <data name="InvalidFrameImage" xml:space="preserve">
+    <value>The sequence contains invalid frame images.</value>
+  </data>
+  <data name="FrameLimitExceeded" xml:space="preserve">
+    <value>The maximum number of frames has been exceeded.</value>
+  </data>
+  <data name="SavingFailed" xml:space="preserve">
+    <value>Failed to save the custom runner.</value>
+  </data>
+  <data name="RunnerInUse" xml:space="preserve">
+    <value>This Runner is currently in use.</value>
+  </data>
+  <data name="CustomMetrics" xml:space="preserve">
+    <value>Custom Metrics</value>
+  </data>
+  <data name="AddCustomMetricsSource" xml:space="preserve">
+    <value>Add Custom Metrics Source</value>
+  </data>
+  <data name="ChooseJSONFile" xml:space="preserve">
+    <value>Choose a JSON file.</value>
+  </data>
+  <data name="CustomMetricsDescription" xml:space="preserve">
+    <value>The registered JSON content will be reflected as cards on the dashboard. Updating the content is outside the scope of this application.</value>
+  </data>
+  <data name="ViewJSONSchemaAndSamples" xml:space="preserve">
+    <value>View JSON schema and samples</value>
+  </data>
+  <data name="RemoveCustomMetrics" xml:space="preserve">
+    <value>Remove Custom Metrics?</value>
+  </data>
+  <data name="CustomMetricsConfirmationMessage" xml:space="preserve">
+    <value>Its card will disappear from the dashboard. The underlying JSON file on disk is not deleted.</value>
+  </data>
+  <data name="ErrorDetected" xml:space="preserve">
+    <value>⚠︎ Error Detected</value>
+  </data>
+  <data name="ShowInExplorer" xml:space="preserve">
+    <value>Show in File Explorer</value>
+  </data>
+  <data name="FileUnreadable" xml:space="preserve">
+    <value>The specified file is unreadable.</value>
+  </data>
+  <data name="InvalidFormat" xml:space="preserve">
+    <value>The specified file does not follow the Custom Metrics schema.</value>
+  </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>Last updated: {0}</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="RelativeNow" xml:space="preserve">
+    <value>now</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} sec. ago</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} min. ago</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} hr. ago</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>yesterday</value>
+  </data>
+  <data name="InSeconds" xml:space="preserve">
+    <value>in {0} sec.</value>
+  </data>
+  <data name="InMinutes" xml:space="preserve">
+    <value>in {0} min.</value>
+  </data>
+  <data name="InHours" xml:space="preserve">
+    <value>in {0} hr.</value>
+  </data>
+  <data name="InDays" xml:space="preserve">
+    <value>in {0} days</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>tomorrow</value>
+  </data>
+  <data name="ViewRunnerGuide" xml:space="preserve">
+    <value>View Custom Runner Guide</value>
+  </data>
+  <data name="RunnerGuideDescription" xml:space="preserve">
+    <value>Custom Runner Guide showcases and distributes resources for custom runners. Why not find a runner you love to use, or even share your own creation with the community?</value>
+  </data>
+  <data name="CustomMetricsSourceName" xml:space="preserve"><value>Name</value></data>
+  <data name="CustomMetricsSourceStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="CustomMetricsFilePath" xml:space="preserve"><value>JSON file</value></data>
+  <data name="JSONFileFilter" xml:space="preserve"><value>JSON files (*.json)|*.json|All files (*.*)|*.*</value></data>
+  <data name="SettingsSavingFailed" xml:space="preserve"><value>Could not save settings. Your custom metrics sources have not changed.</value></data>
+  <data name="RunnerDuck" xml:space="preserve"><value>Duck</value></data>
+  <data name="RunnerDuckFilled" xml:space="preserve"><value>Duck (White)</value></data>
+  <data name="RunnerSize" xml:space="preserve"><value>Runner size</value></data>
+  <data name="RunnerSizeSmall" xml:space="preserve"><value>Small</value></data>
+  <data name="RunnerSizeStandard" xml:space="preserve"><value>Standard</value></data>
+  <data name="RunnerSizeLarge" xml:space="preserve"><value>Large</value></data>
+  <data name="RunnerSizeWindowsNote" xml:space="preserve"><value>Windows keeps the tray icon area fixed. Large zooms in and may crop the edges; the preview shows the result.</value></data>
+  <data name="AppUpdates" xml:space="preserve">
+    <value>App updates</value>
+  </data>
+  <data name="InstalledRevision" xml:space="preserve">
+    <value>Installed version</value>
+  </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="ViewUpdateChanges" xml:space="preserve">
+    <value>View releases</value>
+  </data>
+  <data name="AppUpdateNotChecked" xml:space="preserve">
+    <value>Updates have not been checked.</value>
+  </data>
+  <data name="AppUpdateChecking" xml:space="preserve">
+    <value>Checking for updates…</value>
+  </data>
+  <data name="AppUpdateUpToDate" xml:space="preserve">
+    <value>RunnerDuck is up to date.</value>
+  </data>
+  <data name="AppUpdateAvailable" xml:space="preserve">
+    <value>A new version is available.</value>
+  </data>
+  <data name="AppUpdateUnpublishedBuild" xml:space="preserve">
+    <value>No update information is available for this version.</value>
+  </data>
+  <data name="AppUpdateUnknownBuild" xml:space="preserve">
+    <value>Version information is missing, so updates can't be checked.</value>
+  </data>
+  <data name="AppUpdateFailed" xml:space="preserve">
+    <value>Could not check for updates. Check your connection or try again later.</value>
+  </data>
+</root>

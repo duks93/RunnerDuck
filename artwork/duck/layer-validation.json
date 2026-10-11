@@ -1,0 +1,562 @@
+{
+  "idle": {
+    "frames": 48,
+    "fps": 24,
+    "clippedPixels": 0,
+    "layerSheetSha256": "ee5640de759cfd1d5dbc93f969ee6e906bdbed268dddfe669b9ea31809a14e61",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "87fa15ab1996"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "42d39c33608b"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "768ce842ff21"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "44746371cbae"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "26d8e03f635d"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "201034db5e05"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "d82ecb3c231b"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "354944f12d54"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "37440dc16233"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  },
+  "walk": {
+    "frames": 40,
+    "fps": 40,
+    "clippedPixels": 0,
+    "layerSheetSha256": "5e4a20ddec5993657589cb6183b9f05bda4086bd238c098d4803d9883994da8b",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "92f7920a953a"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "45df36a92b4a"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "099d04b24647"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "7c1416e6f59d"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "a2749bde6c91"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "e24053d678f8"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "d4cbf4a90907"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "988da1dd0fab"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "6560ab1eb67e"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  },
+  "run": {
+    "frames": 36,
+    "fps": 60,
+    "clippedPixels": 0,
+    "layerSheetSha256": "cc41d80a206faf9c1c701cb6053178a9648273bdd947913b446ac5368baca18e",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "7102b54f68a6"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "9fa174910c8d"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "e0beac310c17"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "b58daac7c523"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "370b064e361d"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "7c352fa286ed"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "582535db3d23"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "7eb317c65cae"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "7a62d9348fba"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  },
+  "idle_to_walk": {
+    "frames": 18,
+    "fps": 60,
+    "clippedPixels": 0,
+    "layerSheetSha256": "02c272327a18e95c2ad1063321b75416c5e26ba9d1d2b3dbcd7c7ab271c461e8",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "b5ad333fe6f4"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "3425b6f7d86e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "dca79c4e296e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e2876487769e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "92e65e4eea5f"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "49a41dd17ea1"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e75a18af1fe3"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "86c1e9680ef6"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "a1446a460b2c"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  },
+  "walk_to_idle": {
+    "frames": 18,
+    "fps": 60,
+    "clippedPixels": 0,
+    "layerSheetSha256": "379e114a1075034e3fbe4bce54129c75022db2bd589f6dc96f7308ae2093be95",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "b5ad333fe6f4"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "3425b6f7d86e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "dca79c4e296e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e2876487769e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "92e65e4eea5f"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "49a41dd17ea1"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e75a18af1fe3"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "86c1e9680ef6"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "a1446a460b2c"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  },
+  "walk_to_run": {
+    "frames": 18,
+    "fps": 60,
+    "clippedPixels": 0,
+    "layerSheetSha256": "08140825894471be72dfb2d341badc5c96e103b1d7417c55e95bacf6523294e0",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "b5ad333fe6f4"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "3425b6f7d86e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "dca79c4e296e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e2876487769e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "92e65e4eea5f"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "49a41dd17ea1"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e75a18af1fe3"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "86c1e9680ef6"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "a1446a460b2c"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  },
+  "run_to_walk": {
+    "frames": 18,
+    "fps": 60,
+    "clippedPixels": 0,
+    "layerSheetSha256": "7de4e4eb3515c32009032370129c1534ac6eedfd43ff825553e9c5182e149f6e",
+    "stack": [
+      {
+        "state": "body",
+        "track": "base",
+        "state_revision": [
+          "b5ad333fe6f4"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "3425b6f7d86e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "dca79c4e296e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "far_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e2876487769e"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_thigh",
+        "track": "prop_effect",
+        "state_revision": [
+          "92e65e4eea5f"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_shin",
+        "track": "prop_effect",
+        "state_revision": [
+          "49a41dd17ea1"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "near_foot",
+        "track": "prop_effect",
+        "state_revision": [
+          "e75a18af1fe3"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "body_cover",
+        "track": "action_overlay",
+        "state_revision": [
+          "86c1e9680ef6"
+        ],
+        "clipped_pixels": 0
+      },
+      {
+        "state": "head",
+        "track": "prop_effect",
+        "state_revision": [
+          "a1446a460b2c"
+        ],
+        "clipped_pixels": 0
+      }
+    ]
+  }
+}
