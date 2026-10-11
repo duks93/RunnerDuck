@@ -4,20 +4,20 @@ updates:
     directory: "/LocalPackage"
     schedule:
       interval: "daily"
-      timezone: "Asia/Tokyo"
+      timezone: "Asia/Seoul"
       time: "09:00"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-      timezone: "Asia/Tokyo"
+      timezone: "Asia/Seoul"
       time: "09:00"
   - package-ecosystem: "nuget"
     directories:
       - "/Windows/*"
     schedule:
       interval: "weekly"
-      timezone: "Asia/Tokyo"
+      timezone: "Asia/Seoul"
       time: "09:00"
     groups:
       test-packages:
