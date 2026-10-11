@@ -28,7 +28,7 @@ internal sealed class SystemInfoCard : DashboardCard
 {
     private IReadOnlyList<DashboardSystemRow> rows = [];
 
-    private int GraphHeight => LogicalToDeviceUnits(16);
+    private int GraphHeight => LogicalToDeviceUnits(20);
 
     private int BarHeight => LogicalToDeviceUnits(6);
 

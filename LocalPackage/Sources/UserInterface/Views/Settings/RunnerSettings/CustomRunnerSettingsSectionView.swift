@@ -42,6 +42,12 @@ struct CustomRunnerSettingsSectionView: View {
                     }
                 }
             }
+            .overlay {
+                if store.customRunnerBundleList.isEmpty {
+                    Text("noCustomRunners", bundle: .module)
+                        .foregroundStyle(.secondary)
+                }
+            }
             HStack {
                 Spacer()
                 Button {

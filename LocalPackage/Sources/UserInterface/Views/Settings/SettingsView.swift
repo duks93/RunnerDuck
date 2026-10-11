@@ -57,6 +57,7 @@ struct SettingsView: View {
                 }
                 .tag(SettingsTab.metrics)
         }
+        .frame(width: 520)
         .fixedSize()
         .accessibilityIdentifier("settings")
     }

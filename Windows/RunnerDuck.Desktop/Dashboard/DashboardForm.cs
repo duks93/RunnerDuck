@@ -23,6 +23,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using RunnerDuck.AIUsage;
 using RunnerDuck.AIUsage.Presentation;
+using RunnerDuck.App.Properties;
 using RunnerDuck.Core;
 
 namespace RunnerDuck.App.Dashboard;
@@ -36,7 +37,14 @@ internal sealed partial class DashboardForm : Form
     private const int RoundedCornerPreference = 2;
 
     private readonly Label titleLabel = new() { AutoSize = false, TextAlign = ContentAlignment.MiddleLeft };
-    private readonly Button menuButton = new() { FlatStyle = FlatStyle.Flat, Text = "", TabStop = false };
+    private readonly Label menuButton = new()
+    {
+        AutoSize = false,
+        Text = "",
+        TextAlign = ContentAlignment.MiddleCenter,
+        AccessibleName = Strings.Menu,
+        AccessibleRole = AccessibleRole.PushButton,
+    };
     private readonly SystemInfoCard systemInfoCard = new();
     private readonly List<CustomMetricsCard> customMetricsCards = [];
     private readonly AIUsageCard aiUsageCard = new();
@@ -57,7 +65,8 @@ internal sealed partial class DashboardForm : Form
         titleLabel.Text = appName;
         titleLabel.Font = new Font("Segoe UI", 9.75f);
         menuButton.Font = new Font("Segoe Fluent Icons", 10f);
-        menuButton.FlatAppearance.BorderSize = 0;
+        menuButton.MouseEnter += (_, _) => menuButton.BackColor = theme.CardBackground;
+        menuButton.MouseLeave += (_, _) => menuButton.BackColor = theme.Background;
         menuButton.Click += (_, _) => menu.Show(menuButton, new Point(0, menuButton.Height));
         aiUsageCard.Visible = false;
         Controls.AddRange([titleLabel, menuButton, systemInfoCard, aiUsageCard]);
@@ -171,7 +180,6 @@ internal sealed partial class DashboardForm : Form
         titleLabel.ForeColor = theme.SecondaryText;
         menuButton.BackColor = theme.Background;
         menuButton.ForeColor = theme.Text;
-        menuButton.FlatAppearance.MouseOverBackColor = theme.CardBackground;
         foreach (var card in Cards)
         {
             card.ApplyTheme(theme);

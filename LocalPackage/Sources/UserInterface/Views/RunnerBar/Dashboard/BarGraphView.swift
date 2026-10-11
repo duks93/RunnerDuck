@@ -25,14 +25,13 @@ struct BarGraphView: View {
     var value: Double
 
     var body: some View {
-        Rectangle()
-            .frame(width: 120, height: 8)
-            .foregroundStyle(Color.clear)
-            .border(Color.accentColor, width: 0.5)
+        Capsule()
+            .fill(Color.secondary.opacity(0.25))
+            .frame(width: 120, height: 6)
             .overlay(alignment: .leading) {
-                Rectangle()
-                    .frame(width: 120 * min(100, value) / 100, height: 8)
-                    .foregroundStyle(Color.accentColor)
+                Capsule()
+                    .fill(Color.accentColor)
+                    .frame(width: 120 * max(0, min(100, value)) / 100, height: 6)
             }
     }
 }

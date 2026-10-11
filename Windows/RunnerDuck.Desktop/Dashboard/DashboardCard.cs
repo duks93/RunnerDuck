@@ -39,7 +39,7 @@ internal abstract class DashboardCard : Control
 
     protected Font PrimaryFont { get; } = new("Segoe UI", 9.75f);
 
-    protected Font SecondaryFont { get; } = new("Segoe UI", 8.25f);
+    protected Font SecondaryFont { get; } = new("Segoe UI", 9f);
 
     protected int Padding8 => LogicalToDeviceUnits(8);
 
@@ -68,7 +68,8 @@ internal abstract class DashboardCard : Control
         PaintContent(graphics);
     }
 
-    protected int LineHeight(Font font) => TextRenderer.MeasureText("Ag", font, Size.Empty, TextFormatFlags.NoPadding).Height;
+    protected int LineHeight(Font font) =>
+        TextRenderer.MeasureText("Ag", font, Size.Empty, TextFormatFlags.NoPadding).Height + LogicalToDeviceUnits(3);
 
     protected void DrawText(Graphics graphics, string text, Font font, Color color, Rectangle bounds, TextFormatFlags alignment = TextFormatFlags.Left) =>
         TextRenderer.DrawText(

@@ -46,6 +46,12 @@ struct CustomMetricsSettingsSectionView: View {
                     }
                 }
             }
+            .overlay {
+                if store.customMetricsSources.isEmpty {
+                    Text("noCustomMetricsSources", bundle: .module)
+                        .foregroundStyle(.secondary)
+                }
+            }
             .confirmationDialog(
                 Text("removeCustomMetrics", bundle: .module),
                 isPresented: $store.showingConfirmationDialog,
