@@ -55,7 +55,7 @@ jobs:
           $process = Start-Process -FilePath $app.FullName -ArgumentList '--verify-animation', "$pwd/artifacts/windows-render" -WindowStyle Hidden -PassThru -Wait
           if ($process.ExitCode -ne 0) { throw "Animation renderer exited $($process.ExitCode)" }
           if (-not (Test-Path artifacts/windows-render/result.json)) { throw 'No rendering result was produced.' }
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: windows-validation
@@ -104,7 +104,7 @@ jobs:
           bash install.sh --no-launch | tee artifacts/mac-install.log
       - name: Verify updating the installed macOS app
         run: bash install.sh --no-launch
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: macos-validation
