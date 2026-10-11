@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
@@ -65,7 +65,7 @@ jobs:
     runs-on: macos-26
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Select installed Xcode 26
         run: |
           XCODE=$(python3 -c 'import pathlib,re; paths=list(pathlib.Path("/Applications").glob("Xcode_26*.app")); print(max(paths,key=lambda p:tuple(map(int,re.findall(r"\d+",p.name)))))')
@@ -126,7 +126,7 @@ jobs:
       group: runnerduck-updates
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Publish validated update information to Releases
