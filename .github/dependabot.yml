@@ -6,3 +6,21 @@ updates:
       interval: "daily"
       timezone: "Asia/Tokyo"
       time: "09:00"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      timezone: "Asia/Tokyo"
+      time: "09:00"
+  - package-ecosystem: "nuget"
+    directories:
+      - "/Windows/*"
+    schedule:
+      interval: "weekly"
+      timezone: "Asia/Tokyo"
+      time: "09:00"
+    groups:
+      test-packages:
+        patterns:
+          - "Microsoft.NET.Test.Sdk"
+          - "xunit*"
