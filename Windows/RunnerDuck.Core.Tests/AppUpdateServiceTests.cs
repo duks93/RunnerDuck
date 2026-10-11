@@ -18,7 +18,16 @@ public sealed class AppUpdateServiceTests
     public async Task ComparesRevisionAgainstPublishedHistory(string body, AppUpdateStatus expected)
     {
         using var client = Client(body);
-        Assert.Equal(expected, await new AppUpdateService(client, Commit).CheckAsync());
+        Assert.Equal(expected, (await new AppUpdateService(client, Commit).CheckAsync()).Status);
+    }
+
+    [Theory]
+    [InlineData(CurrentFeed)]
+    [InlineData("{\"schemaVersion\":1,\"commit\":\"" + NewerCommit + "\",\"ancestors\":[]}")]
+    public async Task OnlyAvailableUpdateReportsLatestCommit(string body)
+    {
+        using var client = Client(body);
+        Assert.Null((await new AppUpdateService(client, Commit).CheckAsync()).LatestCommit);
     }
 
     [Theory]
@@ -27,7 +36,7 @@ public sealed class AppUpdateServiceTests
     public async Task UppercaseFeedRevisionsAreRejected(string body)
     {
         using var client = Client(body.Replace(Commit, Commit.ToUpperInvariant()));
-        Assert.Equal(AppUpdateStatus.Failed, await new AppUpdateService(client, Commit).CheckAsync());
+        Assert.Equal(AppUpdateStatus.Failed, (await new AppUpdateService(client, Commit).CheckAsync()).Status);
     }
 
     [Theory]
@@ -38,7 +47,7 @@ public sealed class AppUpdateServiceTests
     public async Task HttpFailureDoesNotReportCurrent(int status)
     {
         using var client = Client(CurrentFeed, (HttpStatusCode)status);
-        Assert.Equal(AppUpdateStatus.Failed, await new AppUpdateService(client, Commit).CheckAsync());
+        Assert.Equal(AppUpdateStatus.Failed, (await new AppUpdateService(client, Commit).CheckAsync()).Status);
     }
 
     [Theory]
@@ -52,7 +61,7 @@ public sealed class AppUpdateServiceTests
     public async Task InvalidResponseReportsFailure(string body)
     {
         using var client = Client(body);
-        Assert.Equal(AppUpdateStatus.Failed, await new AppUpdateService(client, Commit).CheckAsync());
+        Assert.Equal(AppUpdateStatus.Failed, (await new AppUpdateService(client, Commit).CheckAsync()).Status);
     }
 
     [Theory]
@@ -65,14 +74,14 @@ public sealed class AppUpdateServiceTests
     {
         using var client = new HttpClient(new Handler(_ => throw new InvalidOperationException("Must not request")));
         var service = new AppUpdateService(client, commit);
-        Assert.Equal(AppUpdateStatus.UnknownBuild, await service.CheckAsync());
+        Assert.Equal(AppUpdateStatus.UnknownBuild, (await service.CheckAsync()).Status);
     }
 
     [Fact]
     public async Task NetworkFailureReportsFailure()
     {
         using var client = new HttpClient(new Handler(_ => throw new HttpRequestException("Offline")));
-        Assert.Equal(AppUpdateStatus.Failed, await new AppUpdateService(client, Commit).CheckAsync());
+        Assert.Equal(AppUpdateStatus.Failed, (await new AppUpdateService(client, Commit).CheckAsync()).Status);
     }
 
     [Fact]
@@ -81,7 +90,7 @@ public sealed class AppUpdateServiceTests
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
         using var client = new HttpClient(new Handler(_ => throw new OperationCanceledException()));
-        Assert.Equal(AppUpdateStatus.Failed, await new AppUpdateService(client, Commit).CheckAsync(cancellation.Token));
+        Assert.Equal(AppUpdateStatus.Failed, (await new AppUpdateService(client, Commit).CheckAsync(cancellation.Token)).Status);
     }
 
     [Fact]
@@ -95,7 +104,7 @@ public sealed class AppUpdateServiceTests
             return new(HttpStatusCode.OK) { Content = new StringContent(NewerFeed) };
         }));
         var service = new AppUpdateService(client, Commit.ToUpperInvariant());
-        Assert.Equal(AppUpdateStatus.Available, await service.CheckAsync());
+        Assert.Equal(new AppUpdateCheck(AppUpdateStatus.Available, NewerCommit), await service.CheckAsync());
         Assert.Equal("https://github.com/duks93/RunnerDuck/releases", AppUpdateService.ChangesURL);
     }
 

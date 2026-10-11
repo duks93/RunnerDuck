@@ -401,4 +401,19 @@
   <data name="AppUpdateFailed" xml:space="preserve">
     <value>Could not check for updates. Check your connection or try again later.</value>
   </data>
+  <data name="InstallUpdate" xml:space="preserve">
+    <value>Install update</value>
+  </data>
+  <data name="AppUpdateInstallNote" xml:space="preserve">
+    <value>Installing an update downloads the validated source and builds it on this PC in a separate window. It can take a few minutes.</value>
+  </data>
+  <data name="AppUpdateDownloading" xml:space="preserve">
+    <value>Downloading the update…</value>
+  </data>
+  <data name="AppUpdateInstalling" xml:space="preserve">
+    <value>Installing the update in a separate window. RunnerDuck restarts when it finishes.</value>
+  </data>
+  <data name="AppUpdateDownloadFailed" xml:space="preserve">
+    <value>The update could not be downloaded. Check your connection or try again later.</value>
+  </data>
 </root>

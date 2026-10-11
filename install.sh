@@ -26,6 +26,8 @@ mkdir -p "$repo_dir/artifacts"
 source_commit=""
 if [[ "$(git -C "$repo_dir" rev-parse --show-toplevel 2>/dev/null)" == "$repo_dir" ]]; then
     source_commit="$(git -C "$repo_dir" rev-parse HEAD)"
+elif [[ "${RUNNERDUCK_SOURCE_COMMIT:-}" =~ ^[0-9a-f]{40}$ ]]; then
+    source_commit="$RUNNERDUCK_SOURCE_COMMIT"
 fi
 printf 'Building RunnerDuck (Release)...\n'
 if ! xcodebuild build -project "$repo_dir/RunnerDuck.xcodeproj" -scheme RunnerDuck \

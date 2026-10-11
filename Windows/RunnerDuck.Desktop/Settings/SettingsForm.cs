@@ -38,9 +38,11 @@ internal sealed class SettingsForm : Form
             .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().SingleOrDefault()?.InformationalVersion));
     private readonly CancellationTokenSource updateCancellation = new();
     private readonly Button checkForUpdatesButton;
+    private readonly Button installUpdateButton;
     private readonly Label appUpdateNote;
     private readonly LinkLabel updateChangesLink;
     private bool isCheckingForUpdates;
+    private string? availableCommit;
     private bool resourcesDisposed;
     private readonly ISettingsHost host;
     private readonly CustomMetricsSettingsControl customMetrics;
@@ -94,8 +96,11 @@ internal sealed class SettingsForm : Form
         appUpdateNote = general.AddNote(Strings.AppUpdateNotChecked);
         checkForUpdatesButton = general.Add(new Button { Text = Strings.CheckForUpdates, AutoSize = true });
         checkForUpdatesButton.Click += async (_, _) => await CheckForUpdatesAsync();
-        updateChangesLink = general.Add(new LinkLabel { Text = Strings.ViewUpdateChanges, AutoSize = true, Visible = false });
-        updateChangesLink.LinkClicked += (_, _) => OpenURL(AppUpdateService.ChangesURL);
+        installUpdateButton = general.Add(new Button { Text = Strings.InstallUpdate, AutoSize = true, Visible = false });
+        installUpdateButton.Click += async (_, _) => await InstallUpdateAsync();
+        updateChangesLink = general.AddLink(Strings.ViewUpdateChanges, () => OpenURL(AppUpdateService.ChangesURL));
+        updateChangesLink.Visible = false;
+        general.AddNote(Strings.AppUpdateInstallNote);
         tabs.TabPages.Add(Page(Strings.GeneralTab, general));
 
         var runner = new SettingsPage();
@@ -126,9 +131,7 @@ internal sealed class SettingsForm : Form
         });
         runner.AddSection(Strings.CustomRunners);
         runner.Add(CustomRunnerManager());
-        var guideLink = new LinkLabel { Text = Strings.ViewRunnerGuide, AutoSize = true };
-        guideLink.LinkClicked += (_, _) => OpenURL(RunnerGuideURL);
-        runner.Add(guideLink);
+        runner.AddLink(Strings.ViewRunnerGuide, () => OpenURL(RunnerGuideURL));
         runner.AddNote(Strings.RunnerGuideDescription);
         tabs.TabPages.Add(Page(Strings.RunnerTab, runner));
 
@@ -155,9 +158,7 @@ internal sealed class SettingsForm : Form
         customMetrics = new CustomMetricsSettingsControl(host);
         metrics.Add(customMetrics);
         metrics.AddNote(Strings.CustomMetricsDescription);
-        var schemaLink = new LinkLabel { Text = Strings.ViewJSONSchemaAndSamples, AutoSize = true };
-        schemaLink.LinkClicked += (_, _) => OpenURL("https://github.com/duks93/RunnerDuck/blob/main/docs/CustomMetricsSchema.md");
-        metrics.Add(schemaLink);
+        metrics.AddLink(Strings.ViewJSONSchemaAndSamples, () => OpenURL("https://github.com/duks93/RunnerDuck/blob/main/docs/CustomMetricsSchema.md"));
         metrics.AddSection(Strings.AIUsage);
         metrics.Add(aiUsagePanel);
         metrics.AddNote(Strings.AIUsageSettingsFooter);
@@ -218,19 +219,22 @@ internal sealed class SettingsForm : Form
         if (isCheckingForUpdates) return;
         isCheckingForUpdates = true;
         checkForUpdatesButton.Enabled = false;
+        installUpdateButton.Visible = false;
         updateChangesLink.Visible = false;
         appUpdateNote.Text = Strings.AppUpdateChecking;
-        AppUpdateStatus status;
+        AppUpdateCheck check;
         try
         {
-            status = await appUpdateService.CheckAsync(updateCancellation.Token);
+            check = await appUpdateService.CheckAsync(updateCancellation.Token);
         }
         catch (Exception exception)
         {
             Log.Write($"Update check failed: {exception.GetType().Name}");
-            status = AppUpdateStatus.Failed;
+            check = new(AppUpdateStatus.Failed);
         }
         if (resourcesDisposed || IsDisposed || Disposing) return;
+        var status = check.Status;
+        availableCommit = check.LatestCommit;
         appUpdateNote.Text = status switch
         {
             AppUpdateStatus.UpToDate => Strings.AppUpdateUpToDate,
@@ -240,8 +244,35 @@ internal sealed class SettingsForm : Form
             _ => Strings.AppUpdateFailed,
         };
         updateChangesLink.Visible = status == AppUpdateStatus.Available;
+        installUpdateButton.Visible = availableCommit is not null;
         isCheckingForUpdates = false;
         checkForUpdatesButton.Enabled = true;
+    }
+
+    private async Task InstallUpdateAsync()
+    {
+        if (isCheckingForUpdates || availableCommit is not { } commit) return;
+        isCheckingForUpdates = true;
+        checkForUpdatesButton.Enabled = installUpdateButton.Enabled = false;
+        appUpdateNote.Text = Strings.AppUpdateDownloading;
+        try
+        {
+            await AppUpdateInstaller.StartAsync(UpdateHTTPClient, commit, updateCancellation.Token);
+            if (resourcesDisposed || IsDisposed || Disposing) return;
+            appUpdateNote.Text = Strings.AppUpdateInstalling;
+        }
+        catch (Exception exception) when (exception is HttpRequestException or IOException or UnauthorizedAccessException
+            or InvalidDataException or OperationCanceledException or System.ComponentModel.Win32Exception)
+        {
+            Log.Write($"Update installation could not start: {exception.GetType().Name}: {exception.Message}");
+            if (resourcesDisposed || IsDisposed || Disposing) return;
+            appUpdateNote.Text = Strings.AppUpdateDownloadFailed;
+            checkForUpdatesButton.Enabled = installUpdateButton.Enabled = true;
+        }
+        finally
+        {
+            isCheckingForUpdates = false;
+        }
     }
 
     private static TabPage Page(string title, SettingsPage content)

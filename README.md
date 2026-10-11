@@ -64,7 +64,9 @@ RunnerDuck launches at login by default. You can turn this off in **Settings > G
 
 ### Update or reinstall
 
-Check for a new version in **Settings > General > App updates**. To update, pull the latest source and run the installation command again. Settings are kept.
+Check for a new version in **Settings > General > App updates**, then choose **Install update**. RunnerDuck downloads the validated source of the latest release, builds it with the same installer, and restarts. macOS builds in the background and needs Xcode; Windows runs the installer in a separate window. Settings are kept.
+
+You can also update manually: pull the latest source and run the installation command again.
 
 ```sh
 git pull --ff-only

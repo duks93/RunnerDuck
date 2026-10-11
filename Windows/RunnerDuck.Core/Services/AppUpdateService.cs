@@ -36,14 +36,16 @@ public enum AppUpdateStatus
     Failed,
 }
 
+public sealed record AppUpdateCheck(AppUpdateStatus Status, string? LatestCommit = null);
+
 public sealed class AppUpdateService(HttpClient httpClient, string? installedCommit)
 {
     public string? InstalledCommit { get; } = IsCommit(installedCommit) ? installedCommit!.ToLowerInvariant() : null;
     public const string ChangesURL = "https://github.com/duks93/RunnerDuck/releases";
 
-    public async Task<AppUpdateStatus> CheckAsync(CancellationToken cancellationToken = default)
+    public async Task<AppUpdateCheck> CheckAsync(CancellationToken cancellationToken = default)
     {
-        if (InstalledCommit is null) return AppUpdateStatus.UnknownBuild;
+        if (InstalledCommit is null) return new(AppUpdateStatus.UnknownBuild);
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         timeout.CancelAfter(TimeSpan.FromSeconds(15));
         using var request = new HttpRequestMessage(HttpMethod.Get,
@@ -54,20 +56,22 @@ public sealed class AppUpdateService(HttpClient httpClient, string? installedCom
         try
         {
             using var response = await httpClient.SendAsync(request, timeout.Token).ConfigureAwait(false);
-            if (response.StatusCode != HttpStatusCode.OK) return AppUpdateStatus.Failed;
+            if (response.StatusCode != HttpStatusCode.OK) return new(AppUpdateStatus.Failed);
             var data = await response.Content.ReadAsStringAsync(timeout.Token).ConfigureAwait(false);
             var manifest = JsonSerializer.Deserialize<Manifest>(data);
             if (manifest is not { SchemaVersion: 1, Ancestors: { } ancestors } ||
                 !IsPublishedCommit(manifest.Commit) || !ancestors.All(IsPublishedCommit) || ancestors.Contains(manifest.Commit))
             {
-                return AppUpdateStatus.Failed;
+                return new(AppUpdateStatus.Failed);
             }
-            if (manifest.Commit == InstalledCommit) return AppUpdateStatus.UpToDate;
-            return ancestors.Contains(InstalledCommit) ? AppUpdateStatus.Available : AppUpdateStatus.UnpublishedBuild;
+            if (manifest.Commit == InstalledCommit) return new(AppUpdateStatus.UpToDate);
+            return ancestors.Contains(InstalledCommit)
+                ? new(AppUpdateStatus.Available, manifest.Commit)
+                : new(AppUpdateStatus.UnpublishedBuild);
         }
         catch (Exception exception) when (exception is HttpRequestException or OperationCanceledException or JsonException)
         {
-            return AppUpdateStatus.Failed;
+            return new(AppUpdateStatus.Failed);
         }
     }
 

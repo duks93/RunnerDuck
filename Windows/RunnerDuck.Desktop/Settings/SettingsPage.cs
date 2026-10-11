@@ -24,6 +24,8 @@ namespace RunnerDuck.App.Settings;
 internal sealed class SettingsPage : TableLayoutPanel
 {
     private static readonly Font SectionFont = new("Segoe UI", 10.5f, FontStyle.Bold);
+    private static readonly Color DarkModeLinkColor = Color.FromArgb(153, 235, 255);
+    private static readonly Color DarkModeActiveLinkColor = Color.FromArgb(96, 205, 255);
 
     private readonly List<Label> wrappingLabels = [];
 
@@ -68,6 +70,18 @@ internal sealed class SettingsPage : TableLayoutPanel
         var checkBox = new CheckBox { Text = text, Checked = isChecked, AutoSize = true, Margin = new Padding(0, LogicalToDeviceUnits(2), 0, LogicalToDeviceUnits(2)) };
         checkBox.CheckedChanged += (_, _) => changed(checkBox.Checked);
         return Add(checkBox);
+    }
+
+    public LinkLabel AddLink(string text, Action clicked)
+    {
+        var link = new LinkLabel { Text = text, AutoSize = true };
+        if (Application.IsDarkModeEnabled)
+        {
+            link.LinkColor = link.VisitedLinkColor = DarkModeLinkColor;
+            link.ActiveLinkColor = DarkModeActiveLinkColor;
+        }
+        link.LinkClicked += (_, _) => clicked();
+        return Add(link);
     }
 
     public T Add<T>(T control) where T : Control

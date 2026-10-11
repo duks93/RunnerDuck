@@ -120,6 +120,10 @@ try {
         Write-Host "Building RunnerDuck ($Platform Release)..."
         $buildProperties = @('-p:Configuration=Release', "-p:Platform=$Platform",
             "-p:RuntimeIdentifier=win-$($Platform.ToLowerInvariant())", '-p:SelfContained=true', '-p:WindowsAppSDKSelfContained=true')
+        if (-not (Test-Path -LiteralPath (Join-Path $repositoryPath '.git')) -and
+            $env:RUNNERDUCK_SOURCE_COMMIT -cmatch '^[0-9a-f]{40}$') {
+            $buildProperties += "-p:SourceRevisionId=$env:RUNNERDUCK_SOURCE_COMMIT"
+        }
         & $dotnet build $projectPath -t:Rebuild @buildProperties
         if ($LASTEXITCODE -ne 0) { throw "Build failed with exit code $LASTEXITCODE." }
         $targetOutput = & $dotnet msbuild $projectPath -nologo @buildProperties -getProperty:TargetDir

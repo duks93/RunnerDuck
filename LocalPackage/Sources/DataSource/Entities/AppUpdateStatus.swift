@@ -23,7 +23,9 @@ public enum AppUpdateStatus: Sendable, Equatable {
     case notChecked
     case checking
     case upToDate
-    case available
+    case available(String)
+    case installing
+    case installFailed
     case unpublishedBuild
     case unknownBuild
     case failed

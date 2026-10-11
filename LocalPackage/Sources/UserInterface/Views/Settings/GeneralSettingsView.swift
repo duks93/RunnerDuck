@@ -62,22 +62,47 @@ struct GeneralSettingsView: View {
                         Text("installedRevision", bundle: .module)
                     }
                 }
-                Text(store.appUpdateStatus.localizedKey, bundle: .module)
-                Button {
-                    Task { await store.send(.checkForUpdates) }
-                } label: {
-                    Text("checkForUpdates", bundle: .module)
+                HStack(spacing: 8) {
+                    Text(store.appUpdateStatus.localizedKey, bundle: .module)
+                    if store.isInstallingUpdate {
+                        ProgressView()
+                            .controlSize(.small)
+                    }
                 }
-                .disabled(!store.canCheckForUpdates)
-                if store.showsChanges {
+                HStack {
                     Button {
-                        Task { await store.send(.openUpdateChanges) }
+                        Task { await store.send(.checkForUpdates) }
                     } label: {
-                        Text("viewUpdateChanges", bundle: .module)
+                        Text("checkForUpdates", bundle: .module)
+                    }
+                    .disabled(!store.canCheckForUpdates)
+                    if store.isUpdateAvailable {
+                        Button {
+                            Task { await store.send(.installUpdate) }
+                        } label: {
+                            Text("installUpdate", bundle: .module)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        Button {
+                            Task { await store.send(.openUpdateChanges) }
+                        } label: {
+                            Text("viewUpdateChanges", bundle: .module)
+                        }
+                    }
+                    if store.showsUpdateLog {
+                        Button {
+                            Task { await store.send(.showUpdateLog) }
+                        } label: {
+                            Text("showUpdateLog", bundle: .module)
+                        }
                     }
                 }
             } header: {
                 Text("appUpdates", bundle: .module)
+            } footer: {
+                Text("appUpdateInstallNote", bundle: .module)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
         .formStyle(.grouped)
@@ -96,6 +121,8 @@ private extension AppUpdateStatus {
         case .checking: "appUpdateChecking"
         case .upToDate: "appUpdateUpToDate"
         case .available: "appUpdateAvailable"
+        case .installing: "appUpdateInstalling"
+        case .installFailed: "appUpdateInstallFailed"
         case .unpublishedBuild: "appUpdateUnpublishedBuild"
         case .unknownBuild: "appUpdateUnknownBuild"
         case .failed: "appUpdateFailed"

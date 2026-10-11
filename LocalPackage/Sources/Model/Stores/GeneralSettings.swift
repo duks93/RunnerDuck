@@ -33,8 +33,10 @@ public final class GeneralSettings: Composable {
 
     public private(set) var appUpdateStatus = AppUpdateStatus.notChecked
     public var installedCommit: String? { appUpdateService.installedCommit }
-    public var canCheckForUpdates: Bool { appUpdateStatus != .checking }
-    public var showsChanges: Bool { appUpdateStatus == .available }
+    public var canCheckForUpdates: Bool { appUpdateStatus != .checking && appUpdateStatus != .installing }
+    public var isUpdateAvailable: Bool { availableCommit != nil }
+    public var isInstallingUpdate: Bool { appUpdateStatus == .installing }
+    public var showsUpdateLog: Bool { appUpdateStatus == .installFailed }
     public var updateInterval: UpdateInterval
     public var launchesAtLogin: Bool
     public let action: (Action) async -> Void
@@ -67,6 +69,15 @@ public final class GeneralSettings: Composable {
             appUpdateStatus = .checking
             appUpdateStatus = await appUpdateService.check()
 
+        case .installUpdate:
+            guard let availableCommit else { return }
+            appUpdateStatus = .installing
+            appUpdateStatus = await appUpdateService.installUpdate(commit: availableCommit) ? .upToDate : .installFailed
+
+        case .showUpdateLog:
+            guard let updateLogURL = appUpdateService.updateLogURL else { return }
+            nsWorkspaceClient.activateFileViewerSelecting([updateLogURL])
+
         case .openUpdateChanges:
             guard let url = appUpdateService.changesURL else { return }
             _ = nsWorkspaceClient.open(url)
@@ -88,9 +99,16 @@ public final class GeneralSettings: Composable {
         }
     }
 
+    private var availableCommit: String? {
+        guard case let .available(commit) = appUpdateStatus else { return nil }
+        return commit
+    }
+
     public enum Action: Sendable {
         case viewAppeared(String)
         case checkForUpdates
+        case installUpdate
+        case showUpdateLog
         case openUpdateChanges
         case updateIntervalPickerSelected(UpdateInterval)
         case launchAtLoginToggleSwitched(Bool)
