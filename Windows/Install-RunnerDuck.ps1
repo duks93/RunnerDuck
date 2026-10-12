@@ -43,13 +43,14 @@ $installDirectory = $null
 $currentUserRegistry = [Microsoft.Win32.Registry]::CurrentUser
 
 function Start-InstalledRunnerDuck {
+    # RunnerDuck is a GUI executable; Hidden also suppresses its settings windows.
     if ($InstallMode -eq 'Tray' -and $null -ne $installDirectory) {
-        Start-Process -FilePath (Join-Path $installDirectory 'RunnerDuck.exe') -WindowStyle Hidden
+        Start-Process -FilePath (Join-Path $installDirectory 'RunnerDuck.exe') -WindowStyle Normal
         return
     }
     $current = @(Get-AppxPackage -Name $packageName)
     if ($current.Count -eq 1) {
-        Start-Process -WindowStyle Hidden "shell:AppsFolder\$($current[0].PackageFamilyName)!App"
+        Start-Process -WindowStyle Normal "shell:AppsFolder\$($current[0].PackageFamilyName)!App"
     }
 }
 

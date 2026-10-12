@@ -134,7 +134,7 @@ function Start-Process {
                 throw 'App launched before the installed location was recorded.'
             }
         } finally { if ($null -ne $record) { $record.Dispose() } }
-        if ($WindowStyle -ne 'Hidden') { throw 'App launch must not open a console window.' }
+        if ($WindowStyle -ne 'Normal') { throw 'GUI app launch must allow settings windows to appear.' }
         $global:launched = $expectedExecutable
         $global:running = [pscustomobject]@{ Path = $expectedExecutable }
         $global:running | Add-Member ScriptMethod WaitForExit { param($timeout); return $true }
