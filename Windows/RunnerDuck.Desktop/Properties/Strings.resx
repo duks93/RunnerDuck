@@ -363,6 +363,15 @@
   <data name="SettingsSavingFailed" xml:space="preserve"><value>Could not save settings. Your custom metrics sources have not changed.</value></data>
   <data name="RunnerDuck" xml:space="preserve"><value>Duck</value></data>
   <data name="RunnerDuckFilled" xml:space="preserve"><value>Duck (White)</value></data>
+  <data name="RunnerPenguin" xml:space="preserve"><value>Penguin</value></data>
+  <data name="RunnerChicken" xml:space="preserve"><value>Chicken</value></data>
+  <data name="RunnerDinosaur" xml:space="preserve"><value>Dinosaur</value></data>
+  <data name="RunnerOwl" xml:space="preserve"><value>Owl</value></data>
+  <data name="RunnerCat" xml:space="preserve"><value>Cat</value></data>
+  <data name="RunnerPig" xml:space="preserve"><value>Pig</value></data>
+  <data name="RunnerSheep" xml:space="preserve"><value>Sheep</value></data>
+  <data name="RunnerFox" xml:space="preserve"><value>Fox</value></data>
+  <data name="RunnerTurtle" xml:space="preserve"><value>Turtle</value></data>
   <data name="RunnerSize" xml:space="preserve"><value>Runner size</value></data>
   <data name="RunnerSizeSmall" xml:space="preserve"><value>Small</value></data>
   <data name="RunnerSizeStandard" xml:space="preserve"><value>Standard</value></data>

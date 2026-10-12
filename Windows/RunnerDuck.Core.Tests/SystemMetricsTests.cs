@@ -415,7 +415,7 @@ public sealed class RunnerCatalogTests
     public void All_lists_built_in_runners_in_mac_order_then_custom_runners()
     {
         Assert.Equal(
-            new[] { "duck", "duck-filled", "custom-id" },
+            new[] { "duck", "duck-filled", "penguin", "chicken", "dinosaur", "owl", "cat", "dog", "pig", "sheep", "fox", "turtle", "custom-id" },
             RunnerCatalog.All([Custom]).Select(runner => runner.ID)
         );
     }
@@ -423,6 +423,7 @@ public sealed class RunnerCatalogTests
     [Theory]
     [InlineData("duck", "duck")]
     [InlineData("duck-filled", "duck-filled")]
+    [InlineData("turtle", "turtle")]
     [InlineData("custom-id", "custom-id")]
     [InlineData("deleted-custom-id", "duck")]
     [InlineData("", "duck")]

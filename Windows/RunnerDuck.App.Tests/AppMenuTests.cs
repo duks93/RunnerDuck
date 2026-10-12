@@ -7,6 +7,8 @@ namespace RunnerDuck.App.Tests;
 
 public sealed class AppMenuTests
 {
+    private static readonly int BuiltInCount = RunnerCatalog.BuiltInRunners.Count;
+
     [Fact]
     public void Reopening_reuses_thumbnails_and_updates_the_selected_runner() => OnSTA(() =>
     {
@@ -20,7 +22,7 @@ public sealed class AppMenuTests
         fixture.Open();
 
         Assert.Equal(fixture.Runners[1], fixture.CurrentRunner);
-        Assert.Equal(2, fixture.Thumbnails.Count);
+        Assert.Equal(BuiltInCount, fixture.Thumbnails.Count);
         Assert.Same(original[0], fixture.Items[0]);
         Assert.Same(original[1], fixture.Items[1]);
         Assert.False(original[0].Checked);
@@ -37,8 +39,8 @@ public sealed class AppMenuTests
         var custom = new Runner("custom", "Custom runner", false, FrameOrder.Ascending(2));
         fixture.Runners.Add(custom);
         fixture.Open();
-        Assert.Equal(3, fixture.Items.Length);
-        Assert.Equal("Custom runner", fixture.Items[2].Text);
+        Assert.Equal(BuiltInCount + 1, fixture.Items.Length);
+        Assert.Equal("Custom runner", fixture.Items[BuiltInCount].Text);
         Assert.All(previousItems, item => Assert.Contains(item, fixture.DisposedItems));
         AssertDisposed(previousThumbnails);
 
@@ -49,7 +51,7 @@ public sealed class AppMenuTests
 
         fixture.Runners.Remove(custom);
         fixture.Open();
-        Assert.Equal(2, fixture.Items.Length);
+        Assert.Equal(BuiltInCount, fixture.Items.Length);
         Assert.DoesNotContain(fixture.Items, item => item.Text == "Custom runner");
     });
 
@@ -101,7 +103,7 @@ public sealed class AppMenuTests
             fixture.Menu.InvalidateRunnerThumbnails();
             fixture.Open();
 
-            Assert.Equal(4, fixture.Thumbnails.Count);
+            Assert.Equal(2 * BuiltInCount, fixture.Thumbnails.Count);
             Assert.All(previousItems, item => Assert.Contains(item, fixture.DisposedItems));
             AssertDisposed(previousThumbnails);
             Assert.All(fixture.Items, item => Assert.NotNull(item.Image));

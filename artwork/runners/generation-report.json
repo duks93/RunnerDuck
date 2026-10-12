@@ -1,0 +1,172 @@
+{
+  "penguin": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 39.165,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 74.62
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A plump upright penguin: one tall egg-shaped body leaning slightly forward, the round head merged into the top of the body with a short pointed beak facing right, one small flipper drawn as a single curved outline against the side of the body, and a tiny pointed tail at the lower left. One simple curved interior line separates the white belly from the back.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "bb8548934f8bae6a8ba40910e33affa5a7b717d2a4ef6c9590b3af763ea2342f",
+    "baseSha256": "7b0d4bf59f578d8bcb92e4eff3bd9b9d992e1c1d30d436dced978ddf0fb8d70d"
+  },
+  "chicken": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 39.901,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 71.87
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A round hen: a plump rounded body with a short upturned tail of three rounded feather lobes at the upper left, a small round head on a short neck at the upper right with a small triangular beak, a three-lobed comb on top of the head, a small rounded wattle under the beak, and one small folded wing drawn as a simple curved outline on the body.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "2869de8f694151451a16d0fd3f62e0edcc180036941dd3602e7f3dd8047648b8",
+    "baseSha256": "ca1edf91243d99212ac2fad987ed188c5e46dff8872ba254e7dd4e010f764df8"
+  },
+  "dinosaur": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 37.796,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 74.51
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A cute chubby little T-rex: a big rounded head at the upper right with a long gently smiling mouth line, a short thick neck, a bean-shaped body leaning forward, a long thick tapered tail extending down and out to the left, and two tiny short arms near the chest.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "e2918e9f8aa6d99fa94bad2db0ee6a8fc08c0d397e4c4a74912c8241d6e393bc",
+    "baseSha256": "c92a86a4febb65677fce3a4ed14d4deb3c1677d308066c0549526537db510afa"
+  },
+  "owl": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 45.502,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 77.74
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A round owl: an egg-shaped upright body, a large round head with two short pointed ear tufts on top, one big round ring eye, a small hooked beak facing right, one folded wing drawn as a simple curved outline on the side of the body, and a short squared tail at the lower left.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "6f8281265901a340d5cba1cd2f44d6fe69e1ada9e1e2703a855f8ccdf00a143b",
+    "baseSha256": "d47318577052ee8fac32ff66cba95b36fdb64e4a1f49bb76c738980515111289"
+  },
+  "cat": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 40.079,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 77.4
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A slim cat standing on all fours (legs not drawn): a horizontal bean-shaped body, a round head at the right with two pointed triangular ears and a tiny nose, and a long thin tail curving up in an S-shape at the left.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "7ffa523054b7922756627cf611bcd97e424d37e319525eea5984e30debb58240",
+    "baseSha256": "58f4979e48923f103d636dc4a3707a45e30c58b26c18b69f4318f61c82d41b04"
+  },
+  "dog": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 38.119,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 72.11
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A friendly puppy standing on all fours (legs not drawn): a horizontal rounded body, a round head at the right with a short rounded snout and a small solid black round nose, one long floppy ear hanging down along the side of the head, and a short tail pointing up at the left.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "feee02d90335bde0d4c7748ea28e22b159368ad9ea35254a8fc540a1702164e3",
+    "baseSha256": "50f83675daab98205fac41290c10a7910065f1638d8a56c35b4629115c99a1a5"
+  },
+  "pig": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 39.565,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 69.92
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A round pig standing on all fours (legs not drawn): a chubby oval body, a head at the right with a flat oval snout disc with two small nostril dots, one small triangular ear flopping forward, and a tiny curly tail at the left.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "ac5439b93756fd8c2b2b3a6c10901ab92a96d3fdddd9d87668f8dd606938e412",
+    "baseSha256": "b04e09af41d78739c7b49ed5132635d1b45a3a861fa35ddd953208efc5addc7c"
+  },
+  "sheep": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 40.273,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 69.47
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A fluffy sheep standing on all fours (legs not drawn): a cloud-like body whose outline is made of soft rounded scallops of wool, a small smooth oval face at the right with one small ear sticking out sideways, and a tiny round tail at the left.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "7e51fa075a297831a544eb6acd2b5a89fcbedbf1e3453666b754efa0debc8f51",
+    "baseSha256": "dfc59532ee0fff120d65f6e246f43e01fbcc2d90f87dc8568124ce59bac9cee1"
+  },
+  "fox": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 40.627,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 72.41
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A fox standing on all fours (legs not drawn): a slim horizontal body, a head at the right with a long pointed snout, a small black nose tip and one big pointed triangular ear, and a very large bushy tail sweeping up behind at the left with one simple line marking off its white tip.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "24cfc754c825b29c444b6ecee5d58e6cbe22a05b5de79045387fdcefccbebc17",
+    "baseSha256": "ccb08142ae2080f85fd1c47ffd551fb2ab53b1b6cc2d2b66ed24867fdeffa694"
+  },
+  "turtle": {
+    "kind": "sprite-gen-image-report",
+    "provider": "codex",
+    "model": "codex image_gen (model not reported)",
+    "elapsed_seconds": 36.573,
+    "reference": "../duck/style-reference.png",
+    "alpha": {
+      "strategy": "chroma",
+      "strategy_source": "refs-attached",
+      "key": "magenta",
+      "method": "ycbcr",
+      "alpha_zero_pct": 71.91
+    },
+    "prompt": "Draw a new character in EXACTLY the same ink style as the attached reference bird: the same smooth, bold, uniform black outline weight, pure WHITE interior fill, a small oval black-ring eye with a white center, no gray shading, no texture, no outline glow, no color, and only the few interior lines described. Keep it as minimal and cute as the reference. Side view, the whole character faces RIGHT. Draw ONLY the body and head: NO legs and NO feet at all; the underside of the body is one smooth closed rounded outline, because thin stick legs will be attached later as separate rig parts. One single connected character, centered with generous margin. Nothing else: no ground line, shadow, text or extra objects. Do not draw the reference bird itself.\n\nCharacter: A turtle standing on all fours (legs not drawn): a high rounded dome shell with a simple pattern of three or four large outlined plates and a smooth rim band along its lower edge, a rounded head on a short neck poking out to the right, and a small pointed tail at the left.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+    "rawSha256": "eb09bb92bf97ea60f91eede201a6e92218490ebdb9fbd626e94b27ec2d565843",
+    "baseSha256": "817ee4570f241d969f9653439a6390b53b9ff5198369ab6f651aaea85f39b3e9"
+  }
+}

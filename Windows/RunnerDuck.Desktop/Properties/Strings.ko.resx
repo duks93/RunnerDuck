@@ -49,7 +49,7 @@
     <value>네트워크</value>
   </data>
 <data name="RunnerDog" xml:space="preserve">
-    <value>개</value>
+    <value>강아지</value>
   </data>
 <data name="RunnerDrop" xml:space="preserve">
     <value>물방울</value>
@@ -363,6 +363,15 @@
   <data name="SettingsSavingFailed" xml:space="preserve"><value>설정을 저장하지 못했습니다. 사용자 설정 메트릭 소스는 변경되지 않았습니다.</value></data>
   <data name="RunnerDuck" xml:space="preserve"><value>오리</value></data>
   <data name="RunnerDuckFilled" xml:space="preserve"><value>오리 (흰색)</value></data>
+  <data name="RunnerPenguin" xml:space="preserve"><value>펭귄</value></data>
+  <data name="RunnerChicken" xml:space="preserve"><value>닭</value></data>
+  <data name="RunnerDinosaur" xml:space="preserve"><value>공룡</value></data>
+  <data name="RunnerOwl" xml:space="preserve"><value>부엉이</value></data>
+  <data name="RunnerCat" xml:space="preserve"><value>고양이</value></data>
+  <data name="RunnerPig" xml:space="preserve"><value>돼지</value></data>
+  <data name="RunnerSheep" xml:space="preserve"><value>양</value></data>
+  <data name="RunnerFox" xml:space="preserve"><value>여우</value></data>
+  <data name="RunnerTurtle" xml:space="preserve"><value>거북이</value></data>
   <data name="RunnerSize" xml:space="preserve"><value>러너 크기</value></data>
   <data name="RunnerSizeSmall" xml:space="preserve"><value>작게</value></data>
   <data name="RunnerSizeStandard" xml:space="preserve"><value>보통</value></data>

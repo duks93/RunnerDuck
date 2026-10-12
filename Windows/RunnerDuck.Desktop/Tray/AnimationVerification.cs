@@ -11,13 +11,14 @@ internal static class AnimationVerification
     public static void Render(string outputDirectory)
     {
         RenderRunner(outputDirectory, RunnerKind.Duck);
-        RenderRunner(Path.Combine(outputDirectory, "duck-filled"), RunnerKind.DuckFilled);
+        foreach (var kind in Enum.GetValues<RunnerKind>().Where(kind => kind != RunnerKind.Duck))
+            RenderRunner(Path.Combine(outputDirectory, kind.ID()), kind);
     }
 
     private static void RenderRunner(string outputDirectory, RunnerKind kind)
     {
         Directory.CreateDirectory(outputDirectory);
-        var animation = DuckAssets.Animation;
+        var animation = DuckAssets.Animation(kind);
         var frames = DuckAssets.LoadFrames(kind);
         try
         {

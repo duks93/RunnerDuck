@@ -142,6 +142,7 @@ try {
         $manifest.Package.Identity.ProcessorArchitecture -ne $Platform.ToLowerInvariant()) {
         throw 'The generated manifest does not match RunnerDuck and the selected architecture.'
     }
+    $runnerAssets = foreach ($runner in @('penguin', 'chicken', 'dinosaur', 'owl', 'cat', 'dog', 'pig', 'sheep', 'fox', 'turtle')) { "Runners/$runner.json"; "Runners/$runner.png" }
     foreach ($relativePath in @(
         'RunnerDuck.exe', 'RunnerDuck.dll', 'RunnerDuck.deps.json', 'RunnerDuck.runtimeconfig.json',
         'resources.pri', 'ko/RunnerDuck.resources.dll',
@@ -149,7 +150,7 @@ try {
         'ProviderAssets/AIUsage_Icon.png', 'ProviderAssets/AIUsage_Screenshot.png',
         'Duck/animation.json', 'Duck/duck-atlas.png', 'Duck/duck-filled-atlas.png',
         'Legal/NOTICE.txt', 'Legal/LICENSE.txt', 'Legal/THIRD_PARTY.txt'
-    )) {
+    ) + $runnerAssets) {
         if (-not (Test-Path -LiteralPath (Join-Path $layoutPath $relativePath) -PathType Leaf)) {
             throw "Build output is missing $relativePath."
         }

@@ -33,9 +33,9 @@ public struct RunnerAnimation: Codable, Sendable, Equatable {
         self.version = version; self.atlas = atlas; self.frames = frames; self.clips = clips
     }
 
-    public static func parse(_ data: Data) throws -> Self {
+    public static func parse(_ data: Data, atlas: String = "duck-atlas.png") throws -> Self {
         let animation = try JSONDecoder().decode(Self.self, from: data)
-        guard animation.version == 1, animation.atlas == "duck-atlas.png",
+        guard animation.version == 1, animation.atlas == atlas,
               (1 ... 256).contains(animation.frames.count),
               animation.frames.allSatisfy({ $0.x >= 0 && $0.y >= 0 && $0.width > 0 && $0.height > 0 }),
               animation.clips.count == 1, let clip = animation.clips["walk"],

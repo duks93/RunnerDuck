@@ -28,5 +28,6 @@
       <StronglyTypedClassName>Strings</StronglyTypedClassName>
     </EmbeddedResource>
     <Content Include="..\..\LocalPackage\Sources\UserInterface\Resources\Duck\*" LinkBase="Duck" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\LocalPackage\Sources\UserInterface\Resources\Runners\*" LinkBase="Runners" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

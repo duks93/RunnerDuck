@@ -25,6 +25,16 @@ extension RunnerKind {
         switch self {
         case .duck: String(localized: "duck", table: "RunnerNames", bundle: .module)
         case .duckFilled: String(localized: "duck-filled", table: "RunnerNames", bundle: .module)
+        case .penguin: String(localized: "penguin", table: "RunnerNames", bundle: .module)
+        case .chicken: String(localized: "chicken", table: "RunnerNames", bundle: .module)
+        case .dinosaur: String(localized: "dinosaur", table: "RunnerNames", bundle: .module)
+        case .owl: String(localized: "owl", table: "RunnerNames", bundle: .module)
+        case .cat: String(localized: "cat", table: "RunnerNames", bundle: .module)
+        case .dog: String(localized: "dog", table: "RunnerNames", bundle: .module)
+        case .pig: String(localized: "pig", table: "RunnerNames", bundle: .module)
+        case .sheep: String(localized: "sheep", table: "RunnerNames", bundle: .module)
+        case .fox: String(localized: "fox", table: "RunnerNames", bundle: .module)
+        case .turtle: String(localized: "turtle", table: "RunnerNames", bundle: .module)
         }
     }
 }

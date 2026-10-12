@@ -61,6 +61,7 @@ let package = Package(
                 .process("Resources/Localizable.xcstrings"),
                 .process("Resources/RunnerNames.xcstrings"),
                 .copy("Resources/Duck"),
+                .copy("Resources/Runners"),
                 .copy("Resources/Legal"),
             ],
             swiftSettings: swiftSettings

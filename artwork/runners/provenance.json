@@ -1,0 +1,120 @@
+{
+  "created": "2026-10-12",
+  "tool": {
+    "name": "sprite-gen",
+    "version": "2.44.0",
+    "repository": "https://github.com/aldegad/sprite-gen"
+  },
+  "environment": {
+    "python": "3.14",
+    "Pillow": "12.3.0",
+    "numpy": "2.5.4",
+    "isolation": "sprite-gen dedicated .venv"
+  },
+  "provider": "codex (ChatGPT login, no API key committed)",
+  "reference": {
+    "file": "../duck/style-reference.png",
+    "origin": "User-supplied drawing",
+    "sha256": "c9b95915704ed7bd015be8223417ac47fddc04581193b105443f4a156a9b2cb8"
+  },
+  "design": "White fill, bold black ink, small ring eye; body and head generated without legs; duck stick legs and black feet.",
+  "motion": {
+    "method": "One generated drawing per runner + cut head/tail parts + authored fixed-length leg rig + sprite-gen affine curation and compose-layers",
+    "recipe": "../../scripts/artwork/build_runner_rig.py",
+    "config": "runners.json",
+    "sharedParts": [
+      "../duck/parts/leg.png",
+      "../duck/parts/foot.png"
+    ],
+    "manualSteps": [
+      "head and tail cut polygons and pivots",
+      "hip columns, leg lengths and gait timing"
+    ],
+    "generatedImages": "generation-report.json"
+  },
+  "pipeline": [
+    "gen --provider codex --ref style-reference.png --transparent (10 drawings)",
+    "authored cut and rig",
+    "sprite-gen affine curation",
+    "sprite-gen compose-layers",
+    "3x Lanczos downsample",
+    "motion and native rendering verification"
+  ],
+  "runtime": {
+    "penguin": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/penguin.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/penguin.json",
+      "frames": 10,
+      "fps": 10,
+      "atlasSha256": "c6bf6f67e3bd9091f1914eafeb6eb80da51fa02e18606c43fd9b109dcc9ded1a"
+    },
+    "chicken": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/chicken.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/chicken.json",
+      "frames": 10,
+      "fps": 10,
+      "atlasSha256": "a020417350c978ee399d28d30bc8532e78687fb0123b1f168a9f5c3bad236722"
+    },
+    "dinosaur": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/dinosaur.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/dinosaur.json",
+      "frames": 12,
+      "fps": 12,
+      "atlasSha256": "1f03ccb7f311dab904a422652b6d1994faa40fe43f6c5cefab546181c302223b"
+    },
+    "owl": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/owl.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/owl.json",
+      "frames": 8,
+      "fps": 8,
+      "atlasSha256": "40a12b05e3d5458e5c4b5b5fc11c90363bb744139862a1c058be3178984a22f1"
+    },
+    "cat": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/cat.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/cat.json",
+      "frames": 12,
+      "fps": 12,
+      "atlasSha256": "f42ecb7c0fb6aa25c9a128a40e58642a9e98c3df8ca80e485e246709f0a7071a"
+    },
+    "dog": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/dog.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/dog.json",
+      "frames": 12,
+      "fps": 12,
+      "atlasSha256": "13a71e02f08ac223af8306a69069ca282f281689f3ae15058fd4c78a2a316051"
+    },
+    "pig": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/pig.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/pig.json",
+      "frames": 8,
+      "fps": 8,
+      "atlasSha256": "dc6779c80a0fff6831bde06b5fbb8285db01568ef0bcdaeee701d9bb78d3f05c"
+    },
+    "sheep": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/sheep.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/sheep.json",
+      "frames": 10,
+      "fps": 10,
+      "atlasSha256": "bf21f2b8b1e9bb72dfa0ad570d842e81dce63a2500d303e859e105f6404108ad"
+    },
+    "fox": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/fox.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/fox.json",
+      "frames": 12,
+      "fps": 12,
+      "atlasSha256": "128c147f3f8776b6e3e532eab08f2b6ea8fed56ba7d4617485e03929fdb73058"
+    },
+    "turtle": {
+      "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Runners/turtle.png",
+      "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Runners/turtle.json",
+      "frames": 8,
+      "fps": 8,
+      "atlasSha256": "b762da7e5306d9b21fc698429aaf2c9c52acc2bdb365dd5c8a7a54b3605aef9b"
+    }
+  },
+  "excluded": [
+    "raw generation caches",
+    "provider sessions and authentication",
+    "build artifacts"
+  ]
+}

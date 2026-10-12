@@ -92,9 +92,10 @@ jobs:
           actual = {path.stem for path in source.glob('*.png')}
           if actual != expected:
               raise SystemExit(f'Missing AppKit rendering output: {expected - actual}')
-          filled = {path.stem for path in (source / 'duck-filled').glob('*.png')}
-          if filled != expected:
-              raise SystemExit(f'Missing filled duck rendering output: {expected - filled}')
+          for runner in ['duck-filled', 'penguin', 'chicken', 'dinosaur', 'owl', 'cat', 'dog', 'pig', 'sheep', 'fox', 'turtle']:
+              rendered = {path.stem for path in (source / runner).glob('*.png')}
+              if rendered != expected:
+                  raise SystemExit(f'Missing {runner} rendering output: {expected - rendered}')
           shutil.copytree(source, 'artifacts/macos-render', dirs_exist_ok=True)
           PY
       - name: Build and install app and widget

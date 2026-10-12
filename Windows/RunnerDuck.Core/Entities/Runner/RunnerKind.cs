@@ -20,21 +20,38 @@
  */
 
 namespace RunnerDuck.Core;
-public enum RunnerKind { Duck, DuckFilled }
+public enum RunnerKind { Duck, DuckFilled, Penguin, Chicken, Dinosaur, Owl, Cat, Dog, Pig, Sheep, Fox, Turtle }
 public static class RunnerKindExtensions
 {
     public static string ID(this RunnerKind kind) => kind switch
     {
         RunnerKind.Duck => "duck",
         RunnerKind.DuckFilled => "duck-filled",
+        RunnerKind.Penguin => "penguin",
+        RunnerKind.Chicken => "chicken",
+        RunnerKind.Dinosaur => "dinosaur",
+        RunnerKind.Owl => "owl",
+        RunnerKind.Cat => "cat",
+        RunnerKind.Dog => "dog",
+        RunnerKind.Pig => "pig",
+        RunnerKind.Sheep => "sheep",
+        RunnerKind.Fox => "fox",
+        RunnerKind.Turtle => "turtle",
         _ => throw new ArgumentOutOfRangeException(nameof(kind)),
     };
     public static bool IsTemplate(this RunnerKind kind) => kind switch
     {
         RunnerKind.Duck => true,
-        RunnerKind.DuckFilled => false,
+        RunnerKind.DuckFilled or RunnerKind.Penguin or RunnerKind.Chicken or RunnerKind.Dinosaur or RunnerKind.Owl
+            or RunnerKind.Cat or RunnerKind.Dog or RunnerKind.Pig or RunnerKind.Sheep or RunnerKind.Fox or RunnerKind.Turtle => false,
         _ => throw new ArgumentOutOfRangeException(nameof(kind)),
     };
-    public static int NumberOfResources(this RunnerKind kind) => kind is RunnerKind.Duck or RunnerKind.DuckFilled ? 8 : throw new ArgumentOutOfRangeException(nameof(kind));
+    public static int NumberOfResources(this RunnerKind kind) => kind switch
+    {
+        RunnerKind.Duck or RunnerKind.DuckFilled or RunnerKind.Owl or RunnerKind.Pig or RunnerKind.Turtle => 8,
+        RunnerKind.Penguin or RunnerKind.Chicken or RunnerKind.Sheep => 10,
+        RunnerKind.Dinosaur or RunnerKind.Cat or RunnerKind.Dog or RunnerKind.Fox => 12,
+        _ => throw new ArgumentOutOfRangeException(nameof(kind)),
+    };
     public static FrameOrder FrameOrder(this RunnerKind kind) => Core.FrameOrder.Ascending(kind.NumberOfResources());
 }

@@ -1,6 +1,7 @@
 // Copyright 2026 duks93. Licensed under the Apache License, Version 2.0.
 // SPDX-License-Identifier: Apache-2.0
 
+using System.Collections.Concurrent;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using RunnerDuck.Core;
@@ -9,9 +10,14 @@ namespace RunnerDuck.App.Tray;
 
 internal static class DuckAssets
 {
-    private static readonly Lazy<RunnerAnimation> animation = new(() =>
-        RunnerAnimation.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Duck", "animation.json"))));
-    public static RunnerAnimation Animation => animation.Value;
+    private static readonly ConcurrentDictionary<RunnerKind, Lazy<RunnerAnimation>> animations = new();
+
+    // The duck variants share one manifest; each white runner ships its own manifest and atlas.
+    public static RunnerAnimation Animation(RunnerKind kind) => animations.GetOrAdd(kind, key => new(() =>
+    {
+        var (directory, manifest, atlas) = Resource(key);
+        return RunnerAnimation.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, directory, manifest)), atlas);
+    })).Value;
 
     public static IReadOnlyList<Bitmap> LoadFrames(RunnerKind kind = RunnerKind.Duck)
     {
@@ -19,7 +25,7 @@ internal static class DuckAssets
         try
         {
             using var atlas = LoadAtlas(kind);
-            foreach (var rect in Animation.Frames)
+            foreach (var rect in Animation(kind).Frames)
             {
                 frames.Add(LoadFrame(atlas, rect));
             }
@@ -35,18 +41,25 @@ internal static class DuckAssets
     public static Bitmap LoadThumbnail(RunnerKind kind = RunnerKind.Duck)
     {
         using var atlas = LoadAtlas(kind);
-        return LoadFrame(atlas, Animation.Frames[Animation.Clips["walk"].Frames[0]]);
+        var animation = Animation(kind);
+        return LoadFrame(atlas, animation.Frames[animation.Clips["walk"].Frames[0]]);
     }
+
+    public static string AtlasPath(RunnerKind kind)
+    {
+        var (directory, _, atlas) = Resource(kind);
+        return Path.Combine(AppContext.BaseDirectory, directory, kind == RunnerKind.DuckFilled ? "duck-filled-atlas.png" : atlas);
+    }
+
+    private static (string Directory, string Manifest, string Atlas) Resource(RunnerKind kind) => kind switch
+    {
+        RunnerKind.Duck or RunnerKind.DuckFilled => ("Duck", "animation.json", "duck-atlas.png"),
+        _ => ("Runners", $"{kind.ID()}.json", $"{kind.ID()}.png"),
+    };
 
     private static Bitmap LoadAtlas(RunnerKind kind)
     {
-        var atlasName = kind switch
-        {
-            RunnerKind.Duck => Animation.Atlas,
-            RunnerKind.DuckFilled => "duck-filled-atlas.png",
-            _ => throw new ArgumentOutOfRangeException(nameof(kind)),
-        };
-        using var source = new Bitmap(Path.Combine(AppContext.BaseDirectory, "Duck", atlasName));
+        using var source = new Bitmap(AtlasPath(kind));
         var bounds = new Rectangle(Point.Empty, source.Size);
         var data = source.LockBits(bounds, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
         try
@@ -91,7 +104,7 @@ internal static class DuckAssets
     private static Bitmap LoadFrame(Bitmap atlas, RunnerAnimationFrame rect)
     {
         if (rect.X + (long)rect.Width > atlas.Width || rect.Y + (long)rect.Height > atlas.Height)
-            throw new InvalidDataException("A duck animation frame is outside its atlas.");
+            throw new InvalidDataException("A runner animation frame is outside its atlas.");
         return atlas.Clone(new Rectangle(rect.X, rect.Y, rect.Width, rect.Height), PixelFormat.Format32bppArgb);
     }
 }

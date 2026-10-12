@@ -22,8 +22,24 @@
 public enum RunnerKind: String, Sendable, Identifiable, CaseIterable {
     case duck
     case duckFilled = "duck-filled"
+    case penguin
+    case chicken
+    case dinosaur
+    case owl
+    case cat
+    case dog
+    case pig
+    case sheep
+    case fox
+    case turtle
     public var id: String { rawValue }
     public var isTemplate: Bool { self == .duck }
-    var numberOfResources: Int { 8 }
+    var numberOfResources: Int {
+        switch self {
+        case .duck, .duckFilled, .owl, .pig, .turtle: 8
+        case .penguin, .chicken, .sheep: 10
+        case .dinosaur, .cat, .dog, .fox: 12
+        }
+    }
     var frameOrder: FrameOrder { .ascending(numberOfResources) }
 }

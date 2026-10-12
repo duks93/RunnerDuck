@@ -24,6 +24,7 @@
     <Content Include="Assets\*.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="ProviderAssets\*.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\LocalPackage\Sources\UserInterface\Resources\Duck\*" LinkBase="Duck" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\LocalPackage\Sources\UserInterface\Resources\Runners\*" LinkBase="Runners" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\LocalPackage\Sources\UserInterface\Resources\Legal\*.txt" LinkBase="Legal" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include="Widget\Templates\UsageWidget.json" LogicalName="UsageWidget.json" />
   </ItemGroup>

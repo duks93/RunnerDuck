@@ -6,35 +6,44 @@ import DataSource
 
 @MainActor
 enum DuckAssets {
-    private static let outline = load(atlasName: "duck-atlas")
-    private static let filled = load(atlasName: "duck-filled-atlas")
+    private static var cache: [RunnerKind: (animation: RunnerAnimation, frames: [CGImage])?] = [:]
 
     static func bundle(for kind: RunnerKind) -> (animation: RunnerAnimation, frames: [CGImage])? {
-        switch kind {
-        case .duck: outline
-        case .duckFilled: filled
+        if let cached = cache[kind] { return cached }
+        // The duck variants share one manifest; each white runner ships its own manifest and atlas.
+        let loaded = switch kind {
+        case .duck: load(directory: "Duck", manifest: "animation", atlas: "duck-atlas.png", image: "duck-atlas")
+        case .duckFilled: load(directory: "Duck", manifest: "animation", atlas: "duck-atlas.png", image: "duck-filled-atlas")
+        default: load(directory: "Runners", manifest: kind.id, atlas: "\(kind.id).png", image: kind.id)
         }
+        cache[kind] = loaded
+        return loaded
     }
 
-    private static func load(atlasName: String) -> (animation: RunnerAnimation, frames: [CGImage])? {
+    private static func load(
+        directory: String,
+        manifest: String,
+        atlas: String,
+        image: String
+    ) -> (animation: RunnerAnimation, frames: [CGImage])? {
         do {
-            guard let url = Bundle.module.url(forResource: "animation", withExtension: "json", subdirectory: "Duck"),
-                  let atlasURL = Bundle.module.url(forResource: atlasName, withExtension: "png", subdirectory: "Duck"),
+            guard let url = Bundle.module.url(forResource: manifest, withExtension: "json", subdirectory: directory),
+                  let atlasURL = Bundle.module.url(forResource: image, withExtension: "png", subdirectory: directory),
                   let source = NSImage(contentsOf: atlasURL),
-                  let atlas = source.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+                  let atlasImage = source.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
                 throw CocoaError(.fileNoSuchFile)
             }
-            let animation = try RunnerAnimation.parse(Data(contentsOf: url))
+            let animation = try RunnerAnimation.parse(Data(contentsOf: url), atlas: atlas)
             let frames = try animation.frames.map { frame in
-                guard frame.x <= atlas.width - frame.width, frame.y <= atlas.height - frame.height,
-                      let image = atlas.cropping(to: CGRect(x: frame.x, y: frame.y, width: frame.width, height: frame.height)) else {
+                guard frame.x <= atlasImage.width - frame.width, frame.y <= atlasImage.height - frame.height,
+                      let cell = atlasImage.cropping(to: CGRect(x: frame.x, y: frame.y, width: frame.width, height: frame.height)) else {
                     throw CocoaError(.fileReadCorruptFile)
                 }
-                return image
+                return cell
             }
             return (animation, frames)
         } catch {
-            NSLog("RunnerDuck %@ could not load: %@", atlasName, error.localizedDescription)
+            NSLog("RunnerDuck %@ could not load: %@", image, error.localizedDescription)
             return nil
         }
     }

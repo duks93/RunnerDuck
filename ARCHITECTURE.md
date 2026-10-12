@@ -60,6 +60,6 @@ Global app state flows through `AppStateClient` (an `AllocatedUnfairLock<AppStat
 
 Windows/RunnerDuck.Core contains portable models, settings, and the pure RunnerAnimationPlayer. RunnerDuck.AIUsage handles provider integrations. RunnerDuck.App owns Windows Forms, tray rendering, system metrics, startup, and widget COM activation.
 
-The canonical runtime assets are LocalPackage/Sources/UserInterface/Resources/Duck/duck-atlas.png and animation.json. Both builds bundle those files unchanged. Artwork provenance and the sprite-gen source manifest live under artwork/duck.
+The canonical runtime assets are LocalPackage/Sources/UserInterface/Resources/Duck/duck-atlas.png and animation.json; each white runner ships Resources/Runners/<id>.png with its own <id>.json manifest. Both builds bundle those files unchanged. Artwork provenance and the sprite-gen source manifests live under artwork/duck and artwork/runners.
 
-Both animation players repeat the same eight-frame walking loop. Smoothed CPU load controls playback speed from 0.8× to 2× without resetting the current pose. A UI timer advances cached frame indices. Theme and flip changes rebuild presentation caches without resetting playback. Custom runners continue to use the original frame-order format and speed mapping.
+Both animation players repeat the selected runner's walking loop: eight poses for the duck variants, 8–12 for each white runner. Smoothed CPU load controls playback speed from 0.8× to 2× without resetting the current pose. A UI timer advances cached frame indices. Theme and flip changes rebuild presentation caches without resetting playback. Custom runners continue to use the original frame-order format and speed mapping.

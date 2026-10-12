@@ -99,7 +99,69 @@ for name,clip in animation['clips'].items():
                   'maxKneeStepPx':round(knee_step,4),'maxRenderedEyeStepPx':round(eye_step,4),
                   'eyeVerticalRangePx':round(max(p[1] for p in eye)-min(p[1] for p in eye),4)}
 
+runner_config=json.loads((root/'artwork/runners/runners.json').read_text())
+runner_assets=root/'LocalPackage/Sources/UserInterface/Resources/Runners'
+runner_frames={}
+assert {p.stem for p in runner_assets.glob('*.json')}=={p.stem for p in runner_assets.glob('*.png')}==set(runner_config['runners'])
+for name,spec in runner_config['runners'].items():
+    manifest=json.loads((runner_assets/f'{name}.json').read_text())
+    rig=json.loads((root/'artwork/runners'/name/'rig-poses.json').read_text())
+    n=spec['frames'];fps=manifest['clips']['walk']['fps']
+    assert 8<=n<=12 and fps==n, (name,'White runners walk 8-12 poses in a one-second loop.')
+    assert manifest['version']==1 and manifest['atlas']==f'{name}.png' and set(manifest['clips'])=={'walk'}
+    assert manifest['clips']['walk']['frames']==list(range(n)) and manifest['clips']['walk']['loop']
+    assert manifest['frames']==[{'x':i*192,'y':0,'width':192,'height':128} for i in range(n)]
+    sheet=Image.open(runner_assets/f'{name}.png').convert('RGBA')
+    assert sheet.size==(n*192,128),(name,'The atlas must not retain unused cells.')
+    played=[sheet.crop((i*192,0,i*192+192,128)) for i in range(n)]
+    for f in played:
+        bounds=f.getchannel('A').getbbox()
+        assert bounds and bounds[0]>0 and bounds[1]>0 and bounds[2]<192 and bounds[3]<128,(name,bounds)
+        assert f.getpixel((0,0))[3]==0, 'White runner background must stay transparent.'
+        pixels=list(f.get_flattened_data())
+        assert sum(1 for p in pixels if p[3]>240 and min(p[:3])>240)>500,(name,'White runner lost its white body.')
+        assert sum(1 for p in pixels if p[3]>240 and max(p[:3])<60)>200,(name,'White runner lost its ink.')
+    assert len({f.tobytes() for f in played})==n,(name,'Every walking pose must be distinct.')
+    poses=rig['clips']['walk'];ground=rig['groundY'];length=rig['segmentLength']
+    assert len(poses)==n and len(rig['legs'])==len(spec['legs']) in (2,4)
+    pairs=list(zip(range(n),list(range(1,n))+[0]))
+    legs=range(len(rig['legs']))
+    foot_step=max(math.dist(poses[a]['feet'][j]['ankle'],poses[b]['feet'][j]['ankle']) for a,b in pairs for j in legs)
+    knee_step=max(math.dist(poses[a]['knees'][j],poses[b]['knees'][j]) for a,b in pairs for j in legs)
+    body_step=max(math.dist(poses[a]['body'],poses[b]['body']) for a,b in pairs)
+    # Time-normalized like the duck, so the limits hold for any frame density.
+    assert foot_step*fps<190,(name,'foot speed',foot_step*fps)
+    assert knee_step*fps<220,(name,'knee speed',knee_step*fps)
+    assert body_step*fps<30,(name,'body speed',body_step*fps)
+    for p in poses:
+        for j,f in enumerate(p['feet']):
+            for a,b in [(p['hips'][j],p['knees'][j]),(p['knees'][j],f['ankle'])]:
+                assert abs(math.dist(a,b)-length)<1e-6,(name,'Leg length changed.')
+            assert f['ankle'][1]<=ground+1e-8,'Foot target penetrates the ground.'
+            if f['stance']:
+                assert abs(f['ankle'][1]-ground)<1e-8 and abs(f['angle'])<1e-8
+        # Two-legged runners keep one foot down; four-legged runners keep two.
+        assert sum(f['stance'] for f in p['feet'])>=len(p['feet'])//2,(name,'Walking needs supporting feet.')
+    for j in legs:
+        assert any(not p['feet'][j]['stance'] for p in poses)
+        for a,b in pairs:
+            fa,fb=poses[a]['feet'][j],poses[b]['feet'][j]
+            if fa['stance'] and fb['stance']:
+                assert fb['ankle'][0]<fa['ankle'][0],(name,'Grounded foot resets forward.')
+    runner_frames[name]=played
+    report.setdefault('runners',{})[name]={'frames':n,'fps':fps,'legs':len(rig['legs']),
+        'maxFootTargetStepPx':round(foot_step,4),'maxKneeStepPx':round(knee_step,4),'maxBodyStepPx':round(body_step,4),
+        'atlasSha256':hashlib.sha256((runner_assets/f'{name}.png').read_bytes()).hexdigest()}
+
 out=root/'artifacts/asset-check';out.mkdir(parents=True,exist_ok=True)
+for name,played in runner_frames.items():
+    cols=12;sheet=Image.new('RGB',(cols*74,104),'#5b6b7b');d=ImageDraw.Draw(sheet)
+    for i,frame in enumerate(played):
+        x=i*74;d.text((x+4,2),str(i+1),fill='white');offset=18
+        for size in [16,24,32]:
+            f=frame.resize((round(size*1.5),size),Image.Resampling.LANCZOS)
+            sheet.paste(f,(x+4,offset),f);offset+=size+2
+    sheet.save(out/f'{name}-walk-small.png')
 # Every frame at 16/24/32 pixel display height, with enough rows to avoid clipping.
 for name,clip in animation['clips'].items():
     cols=8;rows=(len(clip['frames'])+cols-1)//cols

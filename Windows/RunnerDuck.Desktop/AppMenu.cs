@@ -130,6 +130,16 @@ internal static class RunnerNames
         RunnerSource.Custom custom => custom.Name,
         RunnerSource.BuiltIn { Kind: RunnerKind.Duck } => Strings.RunnerDuck,
         RunnerSource.BuiltIn { Kind: RunnerKind.DuckFilled } => Strings.RunnerDuckFilled,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Penguin } => Strings.RunnerPenguin,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Chicken } => Strings.RunnerChicken,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Dinosaur } => Strings.RunnerDinosaur,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Owl } => Strings.RunnerOwl,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Cat } => Strings.RunnerCat,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Dog } => Strings.RunnerDog,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Pig } => Strings.RunnerPig,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Sheep } => Strings.RunnerSheep,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Fox } => Strings.RunnerFox,
+        RunnerSource.BuiltIn { Kind: RunnerKind.Turtle } => Strings.RunnerTurtle,
         _ => runner.ID,
     };
 }

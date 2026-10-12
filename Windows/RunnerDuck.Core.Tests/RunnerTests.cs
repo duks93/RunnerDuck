@@ -7,6 +7,9 @@ public sealed class RunnerTests
     [Theory]
     [InlineData(RunnerKind.Duck, "duck", new[] { 0, 1, 2, 3, 4, 5, 6, 7 })]
     [InlineData(RunnerKind.DuckFilled, "duck-filled", new[] { 0, 1, 2, 3, 4, 5, 6, 7 })]
+    [InlineData(RunnerKind.Penguin, "penguin", new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 })]
+    [InlineData(RunnerKind.Dinosaur, "dinosaur", new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+    [InlineData(RunnerKind.Turtle, "turtle", new[] { 0, 1, 2, 3, 4, 5, 6, 7 })]
     public void RunnerKind_matches_mac_ids_and_frame_orders(RunnerKind kind, string id, int[] order)
     {
         Assert.Equal(id, kind.ID());
@@ -16,6 +19,16 @@ public sealed class RunnerTests
     [Theory]
     [InlineData(RunnerKind.Duck, 8)]
     [InlineData(RunnerKind.DuckFilled, 8)]
+    [InlineData(RunnerKind.Penguin, 10)]
+    [InlineData(RunnerKind.Chicken, 10)]
+    [InlineData(RunnerKind.Dinosaur, 12)]
+    [InlineData(RunnerKind.Owl, 8)]
+    [InlineData(RunnerKind.Cat, 12)]
+    [InlineData(RunnerKind.Dog, 12)]
+    [InlineData(RunnerKind.Pig, 8)]
+    [InlineData(RunnerKind.Sheep, 10)]
+    [InlineData(RunnerKind.Fox, 12)]
+    [InlineData(RunnerKind.Turtle, 8)]
     public void RunnerKind_number_of_resources_matches_mac(RunnerKind kind, int expected)
     {
         Assert.Equal(expected, kind.NumberOfResources());
@@ -62,6 +75,18 @@ public sealed class RunnerTests
         Assert.Equal(new RunnerSource.BuiltIn(RunnerKind.DuckFilled), runner.Source);
         Assert.False(runner.IsTemplate);
         Assert.False(runner.IsCustom);
+    }
+
+    [Fact]
+    public void White_runners_are_built_in_and_preserve_source_colors()
+    {
+        foreach (var kind in Enum.GetValues<RunnerKind>().Where(kind => kind is not (RunnerKind.Duck or RunnerKind.DuckFilled)))
+        {
+            var runner = RunnerCatalog.Resolve(kind.ID(), []);
+            Assert.Equal(new RunnerSource.BuiltIn(kind), runner.Source);
+            Assert.False(runner.IsTemplate);
+            Assert.InRange(kind.NumberOfResources(), 8, 12);
+        }
     }
 
     [Fact]

@@ -103,12 +103,13 @@ if ($Case -eq 'TrayToBoth') {
 $manifest.Package.Identity.SetAttribute('ProcessorArchitecture', 'x64')
 if ($Case -eq 'InvalidPayload') { $manifest.Package.Identity.SetAttribute('Name', 'InvalidFixture') }
 $manifest.Save((Join-Path $payload 'AppxManifest.xml'))
+$runnerAssets = foreach ($runner in @('penguin', 'chicken', 'dinosaur', 'owl', 'cat', 'dog', 'pig', 'sheep', 'fox', 'turtle')) { "Runners/$runner.json"; "Runners/$runner.png" }
 foreach ($relative in @('RunnerDuck.exe', 'RunnerDuck.dll', 'RunnerDuck.deps.json', 'RunnerDuck.runtimeconfig.json',
     'coreclr.dll', 'hostfxr.dll', 'Microsoft.WindowsAppRuntime.dll', 'resources.pri', 'ko/RunnerDuck.resources.dll',
     'Assets/StoreLogo.png', 'Assets/Square150x150Logo.png', 'Assets/Square44x44Logo.png',
     'ProviderAssets/AIUsage_Icon.png', 'ProviderAssets/AIUsage_Screenshot.png',
     'Duck/animation.json', 'Duck/duck-atlas.png', 'Duck/duck-filled-atlas.png',
-    'Legal/NOTICE.txt', 'Legal/LICENSE.txt', 'Legal/THIRD_PARTY.txt')) {
+    'Legal/NOTICE.txt', 'Legal/LICENSE.txt', 'Legal/THIRD_PARTY.txt') + $runnerAssets) {
     $path = Join-Path $payload $relative
     $null = New-Item -ItemType Directory -Path (Split-Path $path) -Force
     Set-Content -LiteralPath $path 'fixture'

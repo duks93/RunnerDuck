@@ -158,9 +158,9 @@ internal sealed class RunnerDuckApplicationContext : ApplicationContext, ISettin
             return [];
         }
         var bounds = BitmapExtensions.OpaqueBounds(frames.Distinct());
-        IEnumerable<Bitmap> animationFrames = previewRunner.IsCustom
-            ? frames
-            : DuckAssets.Animation.Clips["walk"].Frames.Select(index => frames[index]);
+        IEnumerable<Bitmap> animationFrames = previewRunner.Source is RunnerSource.BuiltIn builtIn
+            ? DuckAssets.Animation(builtIn.Kind).Clips["walk"].Frames.Select(index => frames[index])
+            : frames;
         var previews = animationFrames
             .Select(frame =>
             {
@@ -276,8 +276,8 @@ internal sealed class RunnerDuckApplicationContext : ApplicationContext, ISettin
         DisposeSourceFrames();
         var changedRunner = runner.ID != selection.Runner.ID;
         runner = selection.Runner;
-        if (runner.IsCustom) duckPlayer = null;
-        else if (changedRunner || duckPlayer is null) duckPlayer = new RunnerAnimationPlayer(DuckAssets.Animation);
+        if (runner.Source is not RunnerSource.BuiltIn builtIn) duckPlayer = null;
+        else if (changedRunner || duckPlayer is null) duckPlayer = new RunnerAnimationPlayer(DuckAssets.Animation(builtIn.Kind));
         sourceFrames = selection.Frames;
         settingsRepository.Save(settings);
         RenderIcons();

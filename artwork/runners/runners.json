@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "groundY": 115,
+  "runners": {
+    "penguin": {
+      "frames": 10,
+      "width": 70,
+      "body": {"bob": 1.6, "tilt": 4.0, "tiltFreq": 1},
+      "parts": [
+        {"name": "head", "region": [[-0.1, -0.1], [1.1, -0.1], [1.1, 0.29], [0.5, 0.33], [-0.1, 0.39]],
+         "pivot": [0.5, 0.34], "swing": 2.5, "freq": 1, "lag": 1.2}
+      ],
+      "gait": {"segment": 10.5, "hipHeight": 14, "inset": 4, "duty": 0.62, "stride": 6, "lift": 6, "foot": 14},
+      "legs": [
+        {"name": "far", "x": 0.42, "phase": 0.5},
+        {"name": "near", "x": 0.56, "phase": 0}
+      ]
+    },
+    "chicken": {
+      "frames": 10,
+      "width": 90,
+      "body": {"bob": 1.8, "tilt": 1.5},
+      "parts": [
+        {"name": "head", "region": [[0.56, -0.1], [1.1, -0.1], [1.1, 0.5], [0.84, 0.47], [0.58, 0.39]],
+         "pivot": [0.72, 0.43], "swing": 6, "freq": 2, "lag": 0.9}
+      ],
+      "gait": {"segment": 13.5, "hipHeight": 18, "inset": 4, "duty": 0.62, "stride": 10, "lift": 9, "foot": 15},
+      "legs": [
+        {"name": "far", "x": 0.47, "phase": 0.5},
+        {"name": "near", "x": 0.58, "phase": 0}
+      ]
+    },
+    "dinosaur": {
+      "frames": 12,
+      "width": 128,
+      "body": {"bob": 2.4, "tilt": 1.2, "tiltBase": -1},
+      "parts": [
+        {"name": "tail", "region": [[-0.1, 0.3], [0.3, 0.3], [0.3, 1.1], [-0.1, 1.1]],
+         "pivot": [0.3, 0.72], "swing": 3, "freq": 2, "lag": 1.6},
+        {"name": "head", "region": [[0.55, -0.1], [1.1, -0.1], [1.1, 0.5], [0.75, 0.47], [0.57, 0.36]],
+         "pivot": [0.65, 0.43], "swing": 2.5, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 18, "hipHeight": 24, "inset": 4, "duty": 0.62, "stride": 14, "lift": 11, "foot": 17},
+      "legs": [
+        {"name": "far", "x": 0.4, "phase": 0.5},
+        {"name": "near", "x": 0.5, "phase": 0}
+      ]
+    },
+    "owl": {
+      "frames": 8,
+      "width": 65,
+      "body": {"bob": 1.4, "tilt": 3.0, "tiltFreq": 1},
+      "parts": [
+        {"name": "head", "region": [[-0.1, -0.1], [1.1, -0.1], [1.1, 0.47], [0.88, 0.47], [0.5, 0.42], [-0.1, 0.43]],
+         "pivot": [0.6, 0.45], "swing": 3, "freq": 1, "lag": 1.2}
+      ],
+      "gait": {"segment": 10.5, "hipHeight": 14, "inset": 4, "duty": 0.62, "stride": 6, "lift": 6, "foot": 14},
+      "legs": [
+        {"name": "far", "x": 0.45, "phase": 0.5},
+        {"name": "near", "x": 0.6, "phase": 0}
+      ]
+    },
+    "cat": {
+      "frames": 12,
+      "width": 123,
+      "body": {"bob": 1.2, "tilt": 0.8},
+      "parts": [
+        {"name": "tail", "region": [[-0.1, -0.1], [0.25, -0.1], [0.25, 0.55], [0.21, 0.62], [0.11, 0.73], [-0.1, 0.73]],
+         "pivot": [0.17, 0.66], "swing": 4, "freq": 1, "lag": 0.5},
+        {"name": "head", "region": [[0.6, -0.1], [1.1, -0.1], [1.1, 0.7], [0.82, 0.68], [0.64, 0.46]],
+         "pivot": [0.72, 0.6], "swing": 2.5, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 12, "hipHeight": 16, "inset": 4, "duty": 0.68, "stride": 9, "lift": 7, "foot": 13},
+      "legs": [
+        {"name": "far_hind", "x": 0.22, "phase": 0.5, "knee": -1},
+        {"name": "far_front", "x": 0.64, "phase": 0.25, "knee": 1},
+        {"name": "near_hind", "x": 0.28, "phase": 0, "knee": -1},
+        {"name": "near_front", "x": 0.69, "phase": 0.75, "knee": 1}
+      ]
+    },
+    "dog": {
+      "frames": 12,
+      "width": 130,
+      "body": {"bob": 1.2, "tilt": 0.8},
+      "parts": [
+        {"name": "tail", "region": [[-0.1, -0.1], [0.16, -0.1], [0.16, 0.5], [0.1, 0.57], [-0.1, 0.57]],
+         "pivot": [0.12, 0.53], "swing": 10, "freq": 2, "lag": 0},
+        {"name": "head", "region": [[0.47, -0.1], [1.1, -0.1], [1.1, 0.62], [0.8, 0.62], [0.72, 0.8], [0.55, 0.82], [0.47, 0.42]],
+         "pivot": [0.62, 0.56], "swing": 2.5, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 11.5, "hipHeight": 15, "inset": 4, "duty": 0.68, "stride": 9, "lift": 7, "foot": 13},
+      "legs": [
+        {"name": "far_hind", "x": 0.15, "phase": 0.5, "knee": -1},
+        {"name": "far_front", "x": 0.6, "phase": 0.25, "knee": 1},
+        {"name": "near_hind", "x": 0.21, "phase": 0, "knee": -1},
+        {"name": "near_front", "x": 0.66, "phase": 0.75, "knee": 1}
+      ]
+    },
+    "pig": {
+      "frames": 8,
+      "width": 133,
+      "body": {"bob": 1.0, "tilt": 0.8},
+      "parts": [
+        {"name": "head", "region": [[0.58, -0.1], [1.1, -0.1], [1.1, 1.1], [0.72, 1.1], [0.7, 0.72], [0.6, 0.14]],
+         "pivot": [0.68, 0.5], "swing": 2, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 9.5, "hipHeight": 13, "inset": 4, "duty": 0.68, "stride": 7, "lift": 6, "foot": 13},
+      "legs": [
+        {"name": "far_hind", "x": 0.24, "phase": 0.5, "knee": -1},
+        {"name": "far_front", "x": 0.55, "phase": 0.25, "knee": 1},
+        {"name": "near_hind", "x": 0.3, "phase": 0, "knee": -1},
+        {"name": "near_front", "x": 0.6, "phase": 0.75, "knee": 1}
+      ]
+    },
+    "sheep": {
+      "frames": 10,
+      "width": 134,
+      "body": {"bob": 1.0, "tilt": 0.8},
+      "parts": [
+        {"name": "head", "region": [[0.7, -0.1], [1.1, -0.1], [1.1, 1.1], [0.8, 1.1], [0.78, 0.64], [0.6, 0.5], [0.58, 0.4], [0.62, 0.3], [0.7, 0.18]],
+         "pivot": [0.74, 0.52], "swing": 3, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 9.5, "hipHeight": 13, "inset": 4, "duty": 0.68, "stride": 7, "lift": 6, "foot": 13},
+      "legs": [
+        {"name": "far_hind", "x": 0.19, "phase": 0.5, "knee": -1},
+        {"name": "far_front", "x": 0.58, "phase": 0.25, "knee": 1},
+        {"name": "near_hind", "x": 0.25, "phase": 0, "knee": -1},
+        {"name": "near_front", "x": 0.64, "phase": 0.75, "knee": 1}
+      ]
+    },
+    "fox": {
+      "frames": 12,
+      "width": 140,
+      "body": {"bob": 1.2, "tilt": 0.8},
+      "parts": [
+        {"name": "tail", "region": [[-0.1, -0.1], [0.3, -0.1], [0.3, 0.66], [0.27, 0.75], [0.27, 0.92], [-0.1, 0.92]],
+         "pivot": [0.28, 0.75], "swing": 4, "freq": 1, "lag": 0.5},
+        {"name": "head", "region": [[0.58, 0.2], [1.1, 0.2], [1.1, 0.75], [0.72, 0.74], [0.6, 0.6]],
+         "pivot": [0.64, 0.67], "swing": 2.5, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 11.5, "hipHeight": 15, "inset": 4, "duty": 0.68, "stride": 10, "lift": 7, "foot": 13},
+      "legs": [
+        {"name": "far_hind", "x": 0.34, "phase": 0.5, "knee": -1},
+        {"name": "far_front", "x": 0.6, "phase": 0.25, "knee": 1},
+        {"name": "near_hind", "x": 0.39, "phase": 0, "knee": -1},
+        {"name": "near_front", "x": 0.65, "phase": 0.75, "knee": 1}
+      ]
+    },
+    "turtle": {
+      "frames": 8,
+      "width": 142,
+      "body": {"bob": 0.8, "tilt": 0.6},
+      "parts": [
+        {"name": "head", "region": [[0.77, -0.1], [1.1, -0.1], [1.1, 1.1], [0.8, 1.1], [0.77, 0.72], [0.765, 0.46]],
+         "pivot": [0.78, 0.6], "swing": 3, "freq": 2, "lag": 0.65}
+      ],
+      "gait": {"segment": 7.5, "hipHeight": 10, "inset": 4, "duty": 0.7, "stride": 5, "lift": 5, "foot": 12},
+      "legs": [
+        {"name": "far_hind", "x": 0.21, "phase": 0.5, "knee": -1},
+        {"name": "far_front", "x": 0.58, "phase": 0.25, "knee": 1},
+        {"name": "near_hind", "x": 0.27, "phase": 0, "knee": -1},
+        {"name": "near_front", "x": 0.64, "phase": 0.75, "knee": 1}
+      ]
+    }
+  }
+}

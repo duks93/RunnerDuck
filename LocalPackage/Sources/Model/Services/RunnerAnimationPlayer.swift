@@ -5,7 +5,7 @@ import DataSource
 import Foundation
 
 public final class RunnerAnimationPlayer {
-    private let animation: RunnerAnimation
+    public let animation: RunnerAnimation
     private var elapsed: Double = 0
     private var lastLoadTime: Double?
     private var filteredLoad: Double = 0

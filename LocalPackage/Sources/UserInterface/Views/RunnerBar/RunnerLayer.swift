@@ -82,7 +82,8 @@ final class RunnerLayer: CALayer {
             context.draw(image, in: CGRect(x: 0, y: 0, width: image.width, height: image.height))
             return context.makeImage() ?? image
         }
-        if duckPlayer == nil {
+        // The duck variants keep their pose; a runner with another loop starts its own player.
+        if duckPlayer?.animation != bundle.animation {
             duckPlayer = RunnerAnimationPlayer(animation: bundle.animation)
             setLoad(load)
         }

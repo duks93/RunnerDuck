@@ -73,13 +73,16 @@ struct DuckRenderingTests {
     @MainActor @Test(arguments: RunnerKind.allCases)
     func bundledClipsRenderAtMenuBarSizesAndFlip(kind: RunnerKind) throws {
         let bundle = try #require(DuckAssets.bundle(for: kind))
+        let count = Runner(kind: kind).resourceNames().count
+        #expect((8 ... 12).contains(count))
         #expect(bundle.animation.clips.count == 1)
-        #expect(bundle.frames.count == 8)
-        #expect(bundle.animation.clips["walk"]?.frames == Array(0..<8))
-        for index in 0..<8 {
-            #expect(DuckAssets.image(named: "\(kind.id)-frame-\(index)") != nil)
+        #expect(bundle.frames.count == count)
+        #expect(bundle.animation.clips["walk"]?.frames == Array(0..<count))
+        #expect(bundle.animation.clips["walk"]?.fps == Double(count))
+        for name in Runner(kind: kind).resourceNames() {
+            #expect(DuckAssets.image(named: name) != nil)
         }
-        #expect(DuckAssets.image(named: "\(kind.id)-frame-8") == nil)
+        #expect(DuckAssets.image(named: "\(kind.id)-frame-\(count)") == nil)
         // xcodebuild may filter environment variables before launching a test bundle.
         let root = URL(filePath: ProcessInfo.processInfo.environment["RUNNERDUCK_RENDER_DIR"]
             ?? "/tmp/RunnerDuckRenderValidation")
@@ -126,6 +129,24 @@ struct DuckRenderingTests {
         #expect(layer.frame.height == 18)
     }
 
+    @MainActor @Test(arguments: RunnerKind.allCases.filter { ![RunnerKind.duck, .duckFilled].contains($0) })
+    func white_runner_keeps_its_white_body(kind: RunnerKind) throws {
+        let bundle = try #require(DuckAssets.bundle(for: kind))
+        #expect(!kind.isTemplate)
+        let bitmap = NSBitmapImageRep(cgImage: bundle.frames[0])
+        #expect(bitmap.colorAt(x: 0, y: 0)?.alphaComponent == 0)
+        var white = 0
+        for y in stride(from: 0, to: bitmap.pixelsHigh, by: 2) {
+            for x in stride(from: 0, to: bitmap.pixelsWide, by: 2) {
+                if let color = bitmap.colorAt(x: x, y: y)?.usingColorSpace(.deviceRGB),
+                   color.alphaComponent > 0.95, color.redComponent > 0.95, color.blueComponent > 0.95 {
+                    white += 1
+                }
+            }
+        }
+        #expect(white > 100)
+    }
+
     @MainActor @Test func filled_duck_preserves_white_body_and_switches_rendering_mode() throws {
         let image = try #require(DuckAssets.image(named: "duck-filled-frame-0"))
         let cgImage = try #require(image.cgImage(forProposedRect: nil, context: nil, hints: nil))
@@ -135,7 +156,7 @@ struct DuckRenderingTests {
         #expect(!Runner(kind: .duckFilled).isTemplate)
         #expect(DuckAssets.image(named: "missing-frame-0") == nil)
         let layer = RunnerLayer(gap: 0)
-        for kind in [RunnerKind.duck, .duckFilled, .duck, .duckFilled] {
+        for kind in [RunnerKind.duck, .duckFilled, .dinosaur, .owl, .duck, .penguin, .duckFilled] {
             layer.setColor(CGColor(gray: 0, alpha: 1), kind.isTemplate)
             #expect(layer.setDuck(kind: kind, flipped: false))
             #expect((layer.mask != nil) == kind.isTemplate)
