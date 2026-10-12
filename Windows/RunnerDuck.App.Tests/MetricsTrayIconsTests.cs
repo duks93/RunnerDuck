@@ -27,6 +27,65 @@ public sealed class MetricsTrayIconsTests
     });
 
     [Fact]
+    public void Production_metric_keys_reuse_all_five_reserved_entries() => OnSTA(() =>
+    {
+        using var menu = new ContextMenuStrip();
+        using var icons = new MetricsTrayIcons(menu, () => { }, item => item.Kind.ToString(), visible: false);
+        var reserved = icons.CachedEntries.ToDictionary(pair => pair.Key, pair => pair.Value);
+        string[] expectedOrder = ["CPU", "Memory", "Storage", "Battery", "Network"];
+        var configuration = new MetricsBarConfiguration
+        {
+            ShowsCPU = true, ShowsMemory = true, ShowsStorage = true, ShowsBattery = true, ShowsNetwork = true,
+        };
+        var network = new NetworkInfo(Upload: new ByteData(1500), Download: new ByteData(2_500_000));
+        var earlyReadings = MetricsBarItems.Build(configuration, new SystemInfoBundle(NetworkInfo: network), []);
+        Assert.Equal("Network", Assert.Single(earlyReadings).Key);
+        icons.Update(earlyReadings, 16, Color.Black);
+        Assert.Same(reserved["Network"], icons.Entries["Network"]);
+        var allReadings = MetricsBarItems.Build(configuration, new SystemInfoBundle(
+            CPUInfo: new CPUInfo(new Percentage(0.42)),
+            MemoryInfo: new MemoryInfo(new Percentage(0.6)),
+            StorageInfo: new StorageInfo(new Percentage(0.8)),
+            BatteryInfo: new BatteryInfo(new Percentage(0.75), IsInstalled: true),
+            NetworkInfo: network), []);
+        Assert.Equal(expectedOrder, allReadings.Select(item => item.Key));
+        icons.Update(allReadings, 16, Color.Black);
+        Assert.Equal(5, icons.CachedEntries.Count);
+        Assert.Equal(expectedOrder, icons.CachedEntries.Keys);
+        foreach (var key in expectedOrder) Assert.Same(reserved[key], icons.Entries[key]);
+        icons.Update(MetricsBarItems.Build(configuration, new SystemInfoBundle(BatteryInfo: new BatteryInfo()), []), 16, Color.Black);
+        Assert.Same(reserved["Battery"], Assert.Single(icons.Entries).Value);
+        Assert.Equal(expectedOrder, icons.CachedEntries.Keys);
+    });
+
+    [Fact]
+    public void Missing_readings_and_toggles_reuse_the_same_notification_entry() => OnSTA(() =>
+    {
+        using var menu = new ContextMenuStrip();
+        using var icons = new MetricsTrayIcons(menu, () => { }, _ => "CPU", visible: false);
+        Assert.Equal(new[] { "CPU", "Memory", "Storage", "Battery", "Network" }, icons.CachedEntries.Keys);
+        Assert.All(icons.CachedEntries.Values, entry => Assert.Null(entry.Icon));
+        var cpu = icons.CachedEntries["CPU"];
+        var custom = new MetricsBarItem("CustomMetrics:test", MetricsBarItemKind.CustomMetrics, "9", "9");
+        var reading = new MetricsBarItem("CPU", MetricsBarItemKind.CPU, "42", "42.0%");
+        icons.Update([custom, reading], 16, Color.Black);
+        var customEntry = icons.Entries[custom.Key];
+        Assert.Same(cpu, icons.Entries["CPU"]);
+        icons.Update([], 16, Color.Black);
+        Assert.Empty(icons.Entries);
+        Assert.Null(cpu.Icon);
+        Assert.Null(customEntry.Icon);
+        icons.Update([reading, custom], 32, Color.White);
+        Assert.Same(cpu, icons.Entries["CPU"]);
+        Assert.Same(customEntry, icons.Entries[custom.Key]);
+        Assert.NotNull(cpu.Icon);
+        Assert.Equal(6, icons.CachedEntries.Count);
+        icons.Dispose();
+        Assert.Empty(icons.CachedEntries);
+        Assert.Null(customEntry.Icon);
+    });
+
+    [Fact]
     public void Theme_dpi_and_value_changes_rebuild_but_unchanged_pixels_reuse_the_icon() => OnSTA(() =>
     {
         using var menu = new ContextMenuStrip();

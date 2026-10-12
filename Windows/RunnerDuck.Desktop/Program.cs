@@ -19,6 +19,8 @@
  limitations under the License.
  */
 
+using Microsoft.Win32;
+using RunnerDuck.App.Properties;
 using RunnerDuck.App.Tray;
 using RunnerDuck.App.Widget;
 using RunnerDuck.App.Widget.Com;
@@ -51,7 +53,14 @@ public static class Program
                 "RunnerDuck", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
-        RunTrayApplication();
+        var defaultTrayPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "RunnerDuck", "TrayApp", "RunnerDuck.exe");
+        if (!TrayLaunchGuard.RunIfAllowed(Environment.ProcessPath,
+            TrayLaunchGuard.ReadInstalledExecutable(Registry.CurrentUser), TrayLaunchGuard.HasPackageIdentity(),
+            defaultTrayPath, RunTrayApplication))
+        {
+            MessageBox.Show(Strings.TrayInstallationRequired, "RunnerDuck", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 
     private static void RunTrayApplication()

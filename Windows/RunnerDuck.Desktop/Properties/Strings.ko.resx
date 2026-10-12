@@ -416,4 +416,7 @@
   <data name="AppUpdateDownloadFailed" xml:space="preserve">
     <value>업데이트를 내려받지 못했습니다. 네트워크를 확인하거나 잠시 후 다시 시도하세요.</value>
   </data>
+  <data name="TrayInstallationRequired" xml:space="preserve">
+    <value>설치 후 시작 메뉴에서 RunnerDuck을 실행해 주세요. 이 빌드를 사용하려면 저장소 또는 오프라인 설치 폴더의 install.cmd를 실행하고 원하는 구성을 선택하세요. 설치된 앱을 업데이트하여 트레이 항목이 중복되는 것을 방지합니다.</value>
+  </data>
 </root>

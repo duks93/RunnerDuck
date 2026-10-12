@@ -29,7 +29,7 @@ jobs:
       - name: Validate Windows installer syntax
         shell: pwsh
         run: |
-          foreach ($path in @('install.ps1', 'Windows/Install-RunnerDuck.ps1', 'Windows/InstallerComponents.ps1', 'Windows/InstallerPrerequisites.ps1', 'Windows/Test-InstallerComponents.ps1', 'Windows/Test-InstallerFlow.ps1', 'Windows/New-OfflineBundle.ps1', 'Windows/Test-UpdateBuild.ps1')) {
+          foreach ($path in @('install.ps1', 'Windows/Install-RunnerDuck.ps1', 'Windows/InstallerComponents.ps1', 'Windows/InstallerPrerequisites.ps1', 'Windows/Test-InstallerComponents.ps1', 'Windows/Test-InstallerFlow.ps1', 'Windows/Test-TrayRegistration.ps1', 'Windows/New-OfflineBundle.ps1', 'Windows/Test-UpdateBuild.ps1')) {
             $parseTokens = $null
             $parseErrors = $null
             $null = [System.Management.Automation.Language.Parser]::ParseFile(
@@ -38,6 +38,7 @@ jobs:
           }
       - run: pwsh -File Windows/Test-InstallerComponents.ps1
       - run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File Windows/Test-InstallerFlow.ps1
+      - run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File Windows/Test-TrayRegistration.ps1
       - run: python scripts/verify_repository.py
       - run: python -m unittest discover -s scripts -p 'test_update_manifest.py'
       - run: python scripts/verify_assets.py

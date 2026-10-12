@@ -15,6 +15,7 @@
     <Using Include="Xunit" />
     <ProjectReference Include="..\RunnerDuck.Core\RunnerDuck.Core.csproj" />
     <Compile Include="..\RunnerDuck.Desktop\Tray\MetricsTrayIcons.cs" Link="Tray\MetricsTrayIcons.cs" />
+    <Compile Include="..\RunnerDuck.Desktop\Tray\TrayLaunchGuard.cs" Link="Tray\TrayLaunchGuard.cs" />
     <Compile Include="..\RunnerDuck.Desktop\Tray\BitmapExtensions.cs" Link="Tray\BitmapExtensions.cs" />
     <Compile Include="..\RunnerDuck.Desktop\Tray\DuckAssets.cs" Link="Tray\DuckAssets.cs" />
     <Compile Include="..\RunnerDuck.Desktop\AppMenu.cs" Link="AppMenu.cs" />

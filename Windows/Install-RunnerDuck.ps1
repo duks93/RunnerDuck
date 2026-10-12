@@ -40,6 +40,7 @@ $trayShortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'RunnerDuck
 $installDirectory = $null
 . (Join-Path $PSScriptRoot 'InstallerComponents.ps1')
 . (Join-Path $PSScriptRoot 'InstallerPrerequisites.ps1')
+$currentUserRegistry = [Microsoft.Win32.Registry]::CurrentUser
 
 function Start-InstalledRunnerDuck {
     if ($InstallMode -eq 'Tray' -and $null -ne $installDirectory) {
@@ -101,6 +102,7 @@ try {
     }
 
     $running = @(Get-Process -Name RunnerDuck -ErrorAction SilentlyContinue)
+    $previousExecutables = @($running | ForEach-Object { $_.Path } | Where-Object { $_ })
     $wasRunning = $running.Count -gt 0
     Write-Host 'Stopping RunnerDuck for the update...'
     foreach ($appProcess in $running) {
@@ -182,6 +184,8 @@ try {
     $manifest.Save($installedManifestPath)
     Set-Content -LiteralPath (Join-Path $installDirectory 'install-mode.txt') -Value $InstallMode -Encoding utf8
     if ($InstallMode -eq 'Tray') {
+        Set-RunnerDuckInstalledExecutable -CurrentUser $currentUserRegistry `
+            -InstalledExecutable (Join-Path $installDirectory 'RunnerDuck.exe')
         if ($null -ne $previousPackage) {
             $oldData = Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) "Packages/$($previousPackage.PackageFamilyName)/LocalState"
             Copy-RunnerDuckSettings -Source $oldData -Destination $appRoot
@@ -192,6 +196,20 @@ try {
         $shortcut.TargetPath = Join-Path $installDirectory 'RunnerDuck.exe'
         $shortcut.WorkingDirectory = $installDirectory
         $shortcut.Save()
+        $previousExecutables += Join-Path $layoutPath 'RunnerDuck.exe'
+        if ($null -ne $previousPackage) {
+            $previousExecutables += Join-Path $previousPackage.InstallLocation 'RunnerDuck.exe'
+        }
+        try {
+            $registration = Repair-RunnerDuckTrayRegistration -CurrentUser $currentUserRegistry `
+                -InstalledExecutable (Join-Path $installDirectory 'RunnerDuck.exe') `
+                -PreviousExecutables $previousExecutables -BackupDirectory (Join-Path $appRoot 'TrayRegistrationBackups')
+            if ($registration.BackupPath) {
+                Write-Host "Repaired tray registration; removed $($registration.RemovedEntries) retired entries. Backup: $($registration.BackupPath)"
+            }
+        } catch {
+            Write-Warning "RunnerDuck was installed, but tray registration repair failed: $($_.Exception.Message). Rerun the installer to retry cleanup."
+        }
         Write-Host "Installed RunnerDuck Tray (no Developer Mode required): $installDirectory"
     } else {
     Add-AppxPackage -Register $installedManifestPath
@@ -203,6 +221,8 @@ try {
         $package.InstallLocation.TrimEnd('\') -ne $installDirectory) {
         throw 'The registered package does not match the new build.'
     }
+    Set-RunnerDuckInstalledExecutable -CurrentUser $currentUserRegistry `
+        -InstalledExecutable (Join-Path $installDirectory 'RunnerDuck.exe')
     Write-Host "Installed RunnerDuck $($package.Version): $installDirectory"
     if ($null -eq $previousPackage -and (Test-Path -LiteralPath (Join-Path $trayDirectory 'RunnerDuck.exe'))) {
         $packageData = Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) "Packages/$($package.PackageFamilyName)/LocalState"

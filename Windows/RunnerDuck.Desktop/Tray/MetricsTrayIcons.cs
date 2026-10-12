@@ -13,22 +13,36 @@ internal sealed class MetricsTrayIcons(
     bool visible = true) : IDisposable
 {
     private readonly Dictionary<string, Entry> entries = [];
+    private readonly Dictionary<string, Entry> cachedEntries = CreateBuiltInEntries(menu, leftClicked);
 
     internal IReadOnlyDictionary<string, Entry> Entries => entries;
+    internal IReadOnlyDictionary<string, Entry> CachedEntries => cachedEntries;
+
+    private static Dictionary<string, Entry> CreateBuiltInEntries(ContextMenuStrip menu, Action leftClicked)
+    {
+        // Preserve this order across launches, regardless of which readings arrive first.
+        string[] keys = [nameof(MetricsBarItemKind.CPU), nameof(MetricsBarItemKind.Memory),
+            nameof(MetricsBarItemKind.Storage), nameof(MetricsBarItemKind.Battery), nameof(MetricsBarItemKind.Network)];
+        return keys.ToDictionary(key => key, _ => new Entry(menu, leftClicked));
+    }
 
     public void Update(IReadOnlyList<MetricsBarItem> items, int size, Color color)
     {
         var keys = items.Select(item => item.Key).ToHashSet();
         foreach (var key in entries.Keys.Where(key => !keys.Contains(key)).ToArray())
         {
-            entries[key].Dispose();
+            entries[key].Hide();
             entries.Remove(key);
         }
         foreach (var item in items)
         {
             if (!entries.TryGetValue(item.Key, out var entry))
             {
-                entry = new Entry(menu, leftClicked);
+                if (!cachedEntries.TryGetValue(item.Key, out entry))
+                {
+                    entry = new Entry(menu, leftClicked);
+                    cachedEntries.Add(item.Key, entry);
+                }
                 entries.Add(item.Key, entry);
             }
             entry.Update(item, title(item), size, color, visible);
@@ -37,7 +51,8 @@ internal sealed class MetricsTrayIcons(
 
     public void Dispose()
     {
-        foreach (var entry in entries.Values) entry.Dispose();
+        foreach (var entry in cachedEntries.Values) entry.Dispose();
+        cachedEntries.Clear();
         entries.Clear();
     }
 
@@ -72,6 +87,15 @@ internal sealed class MetricsTrayIcons(
             var text = string.IsNullOrEmpty(item.DetailText) ? title : $"{title}: {item.DetailText}";
             notifyIcon.Text = text.Length > 127 ? text[..127] : text;
             notifyIcon.Visible = visible;
+        }
+
+        public void Hide()
+        {
+            notifyIcon.Visible = false;
+            notifyIcon.Icon = null;
+            Icon?.Dispose();
+            Icon = null;
+            rendered = null;
         }
 
         internal static Bitmap Render(string text, int size, Color color)

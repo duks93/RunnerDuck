@@ -125,6 +125,8 @@ dotnet build Windows/RunnerDuck.Desktop -c Release -p:Platform=x64 -p:WindowsApp
 
 Use `-p:Platform=ARM64` for ARM64. Output is under `Windows/RunnerDuck.Desktop/bin/<Platform>/Release/net10.0-windows10.0.19041.0/`. A build alone does not register the package or widget provider.
 
+To try changes in an installed tray app, use `pwsh -File ./install.ps1 -InstallMode Tray`. It rebuilds, updates the existing installation, and starts that copy. This version shows installation guidance if a build or copied EXE is launched from another path, before registering any tray icon or login startup entry. Build-only output remains available for `--verify-animation` rendering checks.
+
 **macOS (Release with ad-hoc signing):**
 
 ```sh

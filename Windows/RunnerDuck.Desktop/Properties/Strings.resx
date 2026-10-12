@@ -416,4 +416,7 @@
   <data name="AppUpdateDownloadFailed" xml:space="preserve">
     <value>The update could not be downloaded. Check your connection or try again later.</value>
   </data>
+  <data name="TrayInstallationRequired" xml:space="preserve">
+    <value>Run RunnerDuck from the Start menu after installation. To use this build, run install.cmd from the repository or offline installer folder and choose the components you want. This updates the installed app and keeps its tray entry in one place.</value>
+  </data>
 </root>

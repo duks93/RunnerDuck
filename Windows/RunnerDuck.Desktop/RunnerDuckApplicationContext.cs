@@ -78,6 +78,7 @@ internal sealed class RunnerDuckApplicationContext : ApplicationContext, ISettin
             ReportIssue = () => OpenURL(IssuesURL),
             Quit = ExitThread,
         });
+        // Keep the runner as the first NotifyIcon: its existing Shell identity uses ID 1.
         runnerTrayIcon = new RunnerTrayIcon(appMenu.Menu);
         metricsTrayIcons = new MetricsTrayIcons(appMenu.Menu, ToggleDashboard, MetricTitle);
         dashboard = new DashboardForm(AppName, appMenu.Menu);
