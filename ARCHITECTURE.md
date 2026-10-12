@@ -62,4 +62,4 @@ Windows/RunnerDuck.Core contains portable models, settings, and the pure RunnerA
 
 The canonical runtime assets are LocalPackage/Sources/UserInterface/Resources/Duck/duck-atlas.png and animation.json. Both builds bundle those files unchanged. Artwork provenance and the sprite-gen source manifest live under artwork/duck.
 
-Both animation players use smoothed load, hysteresis, phase-zero connections, 300ms transition clips, and a latest-target queue. A UI timer advances cached frame indices. Theme and flip changes rebuild presentation caches without resetting the motion state. Custom runners continue to use the original frame-order format and speed mapping.
+Both animation players repeat the same eight-frame walking loop. Smoothed CPU load controls playback speed from 0.8× to 2× without resetting the current pose. A UI timer advances cached frame indices. Theme and flip changes rebuild presentation caches without resetting playback. Custom runners continue to use the original frame-order format and speed mapping.

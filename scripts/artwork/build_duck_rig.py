@@ -6,7 +6,6 @@ No drawing, optical-flow interpolation, or per-frame ground refitting is used.
 from __future__ import annotations
 
 import argparse
-import copy
 import json
 import math
 from pathlib import Path
@@ -18,9 +17,7 @@ from sprite_gen.compose.compose_layers import bake
 
 SCALE = 3
 CELL = (192 * SCALE, 128 * SCALE)
-CLIPS = {'idle': (48,24), 'walk': (40,40), 'run': (36,60),
-         'idle_to_walk': (18,60), 'walk_to_idle': (18,60),
-         'walk_to_run': (18,60), 'run_to_walk': (18,60)}
+CLIPS = {'walk': (8,8)}
 TAU = math.tau
 LENGTH = 18.0  # Fixed hip-knee and knee-ankle distances, in runtime pixels.
 
@@ -55,43 +52,15 @@ def foot_path(phase, duty, stride, lift, x):
             'angle':18*math.sin(TAU*u)*math.sin(math.pi*u)**2, 'stance':False}
 
 
-def pose(state, phase):
+def pose(phase):
     p = phase % 1
-    if state == 'idle':
-        angle = .7*math.sin(TAU*p)
-        body = [72.0,72.0+.35*math.sin(TAU*p)]
-        head = 1.6*math.sin(TAU*p-.5)
-        feet = [{'ankle':[54.,115.], 'angle':0., 'stance':True},
-                {'ankle':[79.,115.], 'angle':0., 'stance':True}]
-    else:
-        running = state == 'run'
-        duty,stride,lift = (.42,19.,18.) if running else (.62,14.,12.)
-        # Feet alternate by exactly half a cycle; no foot identity swapping.
-        feet = [foot_path(p+.5,duty,stride,lift,66.), foot_path(p,duty,stride,lift,70.)]
-        bounce = (2.4 if running else 1.1)*(1-math.cos(2*TAU*p))
-        body = [72.,72.-bounce]
-        angle = (-3.0 if running else -1.0) + .8*math.sin(2*TAU*p)
-        head = (4.0 if running else 2.5)*math.sin(2*TAU*p-.65)
+    duty,stride,lift = .62,14.,12.
+    # Feet alternate by exactly half a cycle; no foot identity swapping.
+    feet = [foot_path(p+.5,duty,stride,lift,66.), foot_path(p,duty,stride,lift,70.)]
+    body = [72.,72.-1.1*(1-math.cos(2*TAU*p))]
+    angle = -1.0 + .8*math.sin(2*TAU*p)
+    head = 2.5*math.sin(2*TAU*p-.65)
     return {'body':body,'bodyAngle':angle,'headAngle':head,'feet':feet}
-
-
-def interpolate(a,b,u):
-    if u == 0: return copy.deepcopy(a)
-    if u == 1: return copy.deepcopy(b)
-    # Zero endpoint acceleration. Interpolate joint targets, never unrelated rasters.
-    w = u*u*u*(10+u*(-15+6*u))
-    mix = lambda x,y: x+(y-x)*w
-    result = {'body':[mix(x,y) for x,y in zip(a['body'],b['body'])],
-              'bodyAngle':mix(a['bodyAngle'],b['bodyAngle']),
-              'headAngle':mix(a['headAngle'],b['headAngle']),'feet':[]}
-    for fa,fb in zip(a['feet'],b['feet']):
-        # An idle foot being repositioned lifts rather than dragging on the ground.
-        hop = 4.0*math.sin(math.pi*u)**2 if abs(fa['ankle'][0]-fb['ankle'][0])>1 else 0
-        result['feet'].append({'ankle':[mix(fa['ankle'][0],fb['ankle'][0]),
-                                       mix(fa['ankle'][1],fb['ankle'][1])-hop],
-                               'angle':mix(fa['angle'],fb['angle']),
-                               'stance':fa['stance'] and fb['stance'] and hop < 1e-8})
-    return result
 
 
 def knee(hip,ankle):
@@ -136,8 +105,7 @@ def instance(position,angle):
 
 def make_clip(name, parts, run):
     count,fps = CLIPS[name]
-    poses = ([interpolate(pose(name.split('_to_')[0],0),pose(name.split('_to_')[1],0),i/(count-1))
-              for i in range(count)] if '_to_' in name else [pose(name,i/count) for i in range(count)])
+    poses = [pose(i/count) for i in range(count)]
     order = ['body','far_thigh','far_shin','far_foot','near_thigh','near_shin','near_foot','body_cover','head']
     sources = {'body':'torso','body_cover':'torso','head':'head',
                'far_thigh':'leg','far_shin':'leg','near_thigh':'leg','near_shin':'leg',
@@ -145,12 +113,12 @@ def make_clip(name, parts, run):
     run.mkdir(parents=True,exist_ok=True)
     import_png_groups(run,[{'name':part,'paths':[parts[sources[part]]]*count} for part in order])
     request = json.loads((run/'sprite-request.json').read_text(encoding='utf-8'))
-    request['character']['id'] = 'runnerduck-motion-v2'
+    request['character']['id'] = 'runnerduck-walk-v3'
     request['rig'] = {'profile':'humanoid_biped','landmarks':{}}
     request['fit'] = {'pixel_unfake':False,'resample':'lanczos','ground_frames':False}
     curation = empty_curation()
     for part in order:
-        request['states'][part].update(fps=fps,loop='_to_' not in name,
+        request['states'][part].update(fps=fps,loop=True,
             action='Generated cutout instances transformed by the authored duck rig',
             track='base' if part=='body' else ('action_overlay' if part=='body_cover' else 'prop_effect'))
         request['rig']['landmarks'][part] = {}
@@ -180,7 +148,7 @@ def make_clip(name, parts, run):
                 points['crown'] = [round(c*SCALE) for c in crown]
             request['rig']['landmarks'][part][str(i)] = points
     request['layers'] = {name:{'stack':[{'state':part,'allow_clip':False} for part in order],
-                              'fps':fps,'loop':'_to_' not in name}}
+                              'fps':fps,'loop':True}}
     dump(run/'sprite-request.json',request)
     write_curation_atomic(run,curation)
     report = bake(run)

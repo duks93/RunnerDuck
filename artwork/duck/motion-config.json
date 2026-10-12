@@ -1,35 +1,10 @@
 {
-  "version": 2,
+  "version": 3,
   "renderScale": 3,
-  "transitionSeconds": 0.3,
   "clips": {
-    "idle": {
-      "frames": 48,
-      "fps": 24
-    },
     "walk": {
-      "frames": 40,
-      "fps": 40
-    },
-    "run": {
-      "frames": 36,
-      "fps": 60
-    },
-    "idle_to_walk": {
-      "frames": 18,
-      "fps": 60
-    },
-    "walk_to_idle": {
-      "frames": 18,
-      "fps": 60
-    },
-    "walk_to_run": {
-      "frames": 18,
-      "fps": 60
-    },
-    "run_to_walk": {
-      "frames": 18,
-      "fps": 60
+      "frames": 8,
+      "fps": 8
     }
   }
 }

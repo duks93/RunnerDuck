@@ -21,21 +21,20 @@
   },
   "design": "Long pointed bill, small head, black ring eye, bean body, thin legs, large black feet; yellow/orange app icon; ink-only theme-tinted runner.",
   "motion": {
-    "version": 2,
+    "version": 3,
     "method": "GPT-generated cutouts + authored fixed-length biped rig + sprite-gen affine curation and compose-layers",
     "recipe": "../../scripts/artwork/build_duck_rig.py",
     "config": "motion-config.json",
     "poses": "rig-poses.json",
-    "transitionMilliseconds": 300,
     "wraparoundIncluded": true,
     "headMotion": "Independent neck rotation with phase-lagged rigid torso motion; no breathing deformation",
     "manualSteps": [
       "component pivot selection and hidden neck-cap mask",
       "foot contact and recovery trajectories",
-      "two-bone inverse kinematics",
-      "joint-target transition interpolation"
+      "two-bone inverse kinematics"
     ],
-    "generatedComponents": "parts/generation-report.json"
+    "generatedComponents": "parts/generation-report.json",
+    "frameSelection": "Eight evenly spaced poses, pixel-identical to every fifth frame of the previous 40-frame walk."
   },
   "pipeline": [
     "prepare",
@@ -50,8 +49,8 @@
   "runtime": {
     "atlas": "../../LocalPackage/Sources/UserInterface/Resources/Duck/duck-atlas.png",
     "manifest": "../../LocalPackage/Sources/UserInterface/Resources/Duck/animation.json",
-    "conversion": "Dark ink alpha; 2/3 px stroke expansion at 3x resolution then Lanczos downsample. Transition endpoints reuse loop phase zero; 18 frames at 60 fps.",
-    "atlasSha256": "3264d15dc8c8d87ad29658ccf52ea8fab1c4ffe330dcbfdab306a40a61ad7d94"
+    "conversion": "Dark ink alpha; 2/3 px stroke expansion at 3x resolution then Lanczos downsample. Eight walking poses in one row.",
+    "atlasSha256": "1bca58c2cca9345635a89f8e80913e37352a7d9b671f02fbd04a6969794670a0"
   },
   "excluded": [
     "raw generation caches",

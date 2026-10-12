@@ -42,7 +42,7 @@ enum DuckAssets {
     static func image(named name: String) -> NSImage? {
         if let kind = RunnerKind.allCases.first(where: { name.hasPrefix("\($0.id)-frame-") }),
            let index = Int(name.dropFirst("\(kind.id)-frame-".count)),
-           let bundle = bundle(for: kind), let clip = bundle.animation.clips["idle"], clip.frames.indices.contains(index) {
+           let bundle = bundle(for: kind), let clip = bundle.animation.clips["walk"], clip.frames.indices.contains(index) {
             let image = bundle.frames[clip.frames[index]]
             return NSImage(cgImage: image, size: CGSize(width: image.width, height: image.height))
         }

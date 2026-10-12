@@ -15,6 +15,8 @@ public sealed class DuckAssetsTests
         try
         {
             Assert.Equal(DuckAssets.Animation.Frames.Length, frames.Count);
+            Assert.Equal(8, frames.Count);
+            Assert.Equal(Enumerable.Range(0, 8), DuckAssets.Animation.Clips["walk"].Frames);
             var body = frames[0].GetPixel(70, 70);
             if (kind == RunnerKind.DuckFilled)
             {
@@ -38,9 +40,9 @@ public sealed class DuckAssetsTests
                 Assert.Equal(PngData(expected), PngData(frames[index]));
             }
             using var thumbnail = DuckAssets.LoadThumbnail(kind);
-            var idleFrame = frames[DuckAssets.Animation.Clips["idle"].Frames[0]];
-            Assert.Equal(idleFrame.Size, thumbnail.Size);
-            Assert.Equal(PngData(idleFrame), PngData(thumbnail));
+            var firstFrame = frames[DuckAssets.Animation.Clips["walk"].Frames[0]];
+            Assert.Equal(firstFrame.Size, thumbnail.Size);
+            Assert.Equal(PngData(firstFrame), PngData(thumbnail));
         }
         finally { foreach (var frame in frames) frame.Dispose(); }
     }

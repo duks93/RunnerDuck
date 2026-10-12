@@ -73,7 +73,13 @@ struct DuckRenderingTests {
     @MainActor @Test(arguments: RunnerKind.allCases)
     func bundledClipsRenderAtMenuBarSizesAndFlip(kind: RunnerKind) throws {
         let bundle = try #require(DuckAssets.bundle(for: kind))
-        #expect(bundle.animation.clips.count == 7)
+        #expect(bundle.animation.clips.count == 1)
+        #expect(bundle.frames.count == 8)
+        #expect(bundle.animation.clips["walk"]?.frames == Array(0..<8))
+        for index in 0..<8 {
+            #expect(DuckAssets.image(named: "\(kind.id)-frame-\(index)") != nil)
+        }
+        #expect(DuckAssets.image(named: "\(kind.id)-frame-8") == nil)
         // xcodebuild may filter environment variables before launching a test bundle.
         let root = URL(filePath: ProcessInfo.processInfo.environment["RUNNERDUCK_RENDER_DIR"]
             ?? "/tmp/RunnerDuckRenderValidation")

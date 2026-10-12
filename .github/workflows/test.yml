@@ -87,7 +87,7 @@ jobs:
           from pathlib import Path
           import shutil
           source = Path('/tmp/RunnerDuckRenderValidation')
-          expected = {'idle', 'walk', 'run', 'idle_to_walk', 'walk_to_idle', 'walk_to_run', 'run_to_walk'}
+          expected = {'walk'}
           actual = {path.stem for path in source.glob('*.png')}
           if actual != expected:
               raise SystemExit(f'Missing AppKit rendering output: {expected - actual}')

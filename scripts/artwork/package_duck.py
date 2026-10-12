@@ -43,12 +43,12 @@ def main():
             ink=ink.filter(ImageFilter.MaxFilter(5)).resize((192,128),Image.Resampling.LANCZOS)
             ink_frames.append(ink)
         assert len(indices)==count
-        clips[name]={'frames':indices,'fps':fps,'loop':'_to_' not in name}
+        clips[name]={'frames':indices,'fps':fps,'loop':True}
         reports[name]={'frames':entry['frames'],'fps':fps,'clippedPixels':0,
                        'layerSheetSha256':hashlib.sha256((folder/f'{name}.png').read_bytes()).hexdigest(),
                        'stack':[{k:e[k] for k in ['state','track','state_revision','clipped_pixels']}
                                 for e in entry['elements']]}
-    columns=12
+    columns=len(source_frames)
     source=Image.new('RGBA',(columns*192,((len(source_frames)+columns-1)//columns)*128))
     rects=[]
     for i,frame in enumerate(source_frames):
@@ -61,40 +61,31 @@ def main():
     for i,ink in enumerate(ink_frames): alpha.paste(ink,(i%columns*192,i//columns*128))
     atlas.putalpha(alpha)
     atlas.save(assets/'duck-atlas.png')
-    for name,clip in clips.items():
-        if '_to_' in name:
-            a,b=name.split('_to_')
-            clip['frames'][0]=clips[a]['frames'][0]
-            clip['frames'][-1]=clips[b]['frames'][0]
     animation={'version':1,'atlas':'duck-atlas.png','frames':rects,'clips':clips}
     dump(assets/'animation.json',animation)
     dump(art/'source-manifest.json',{'kind':'runnerduck-layer-aggregate','source':'sprite-gen compose-layers',
                                     'downsample':'3x Lanczos','templateStrokeExpansionPx':2/3,'frames':rects,'clips':clips})
-    dump(art/'layer-validation.json',reports)
+    report_dir=ROOT/'artifacts/asset-check'
+    report_dir.mkdir(parents=True,exist_ok=True)
+    dump(report_dir/'layer-validation.json',reports)
     shutil.copy2(run/'rig-poses.json',art/'rig-poses.json')
-    dump(art/'motion-config.json',{'version':2,'renderScale':3,'transitionSeconds':.3,
+    dump(art/'motion-config.json',{'version':3,'renderScale':3,
          'clips':{name:{'frames':count,'fps':fps} for name,(count,fps) in CLIPS.items()}})
     frames=[]
     for r in rects:
         f=atlas.crop((r['x'],r['y'],r['x']+192,r['y']+128))
         bg=Image.new('RGBA',f.size,'#fffdf6');bg.alpha_composite(f);frames.append(bg)
     # GIF has centisecond timing; resample at 50 fps to keep the exact loop period.
-    for name in ['idle','walk','run']:
+    for name in clips:
         c=clips[name];n=round(len(c['frames'])/c['fps']*50)
         samples=[frames[c['frames'][min(len(c['frames'])-1,int(i/50*c['fps']))]] for i in range(n)]
         save_clean_gif(samples,art/f'{name}.gif',duration_ms=20,loop=0,alpha_threshold=0)
-    sequence=['idle','idle_to_walk','walk','walk','walk_to_run','run','run','run','run_to_walk','walk','walk_to_idle','idle']
-    demo=[]
-    for name in sequence:
-        c=clips[name];n=round(len(c['frames'])/c['fps']*50)
-        demo.extend(frames[c['frames'][min(len(c['frames'])-1,int(i/50*c['fps']))]] for i in range(n))
-    save_clean_gif(demo,art/'motion-demo.gif',duration_ms=20,loop=0,alpha_threshold=0)
-    first=rects[clips['idle']['frames'][0]]
-    idle=atlas.crop((first['x'],first['y'],first['x']+192,first['y']+128))
+    first=rects[clips['walk']['frames'][0]]
+    thumbnail=atlas.crop((first['x'],first['y'],first['x']+192,first['y']+128))
     media=ROOT/'LocalPackage/Sources/UserInterface/Resources/Media.xcassets'
     for name in ['runnerduck','resting-duck']:
-        idle.save(media/f'{name}.imageset'/f'{name}.png')
-    print(f'Packaged {len(rects)} atlas cells, {len(clips)} clips, exact 300 ms transitions.')
+        thumbnail.save(media/f'{name}.imageset'/f'{name}.png')
+    print(f'Packaged {len(rects)} atlas cells, {len(clips)} walking loop.')
 
 
 if __name__=='__main__':main()

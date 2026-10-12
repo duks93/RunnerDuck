@@ -1,9 +1,9 @@
-"""Check shipped pixels, loop/transition seams, and the authored motion tracks."""
+"""Check the compact walking atlas, loop seam, and authored motion tracks."""
 from pathlib import Path
 import hashlib
 import json
 import math
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageDraw
 
 root=Path(__file__).resolve().parents[1]
 art=root/'artwork/duck'
@@ -18,10 +18,12 @@ source_manifest=json.loads((art/'source-manifest.json').read_text())
 assert source_manifest['frames']==animation['frames'] and source_manifest['clips']==animation['clips']
 filled_atlas=Image.open(filled_path).convert('RGBA')
 assert filled_atlas.size==atlas.size
-expected={'idle','walk','run','idle_to_walk','walk_to_idle','walk_to_run','run_to_walk'}
+expected={'walk'}
 assert animation['version']==1
 assert set(animation['clips'])==set(config['clips'])==set(rig['clips'])==expected
-assert len(animation['frames'])<=256, 'Both app parsers cap the cache at 256 frames.'
+assert len(animation['frames'])==8, 'Ship only the eight walking poses.'
+assert atlas.size==(8*192,128), 'The atlas must not retain unused cells.'
+assert animation['clips']['walk']['frames']==list(range(8))
 frames=[]
 for rect in animation['frames']:
     x,y,w,h=(rect[k] for k in ['x','y','width','height'])
@@ -65,25 +67,20 @@ for name,clip in animation['clips'].items():
     n=len(clip['frames']);fps=clip['fps'];poses=rig['clips'][name]
     assert n==config['clips'][name]['frames']==len(poses)
     assert fps==config['clips'][name]['fps'] and 0<fps<=60
-    assert clip['loop']==('_to_' not in name)
+    assert clip['loop']
     assert all(0<=i<len(frames) for i in clip['frames'])
     played=[frames[i] for i in clip['frames']]
     duration=n/fps
-    if not clip['loop']:
-        assert abs(duration-.3)<1e-8
-        a,b=name.split('_to_')
-        for at,state in [(0,a),(-1,b)]:
-            assert played[at].tobytes()==frames[animation['clips'][state]['frames'][0]].tobytes()
-            assert poses[at]==rig['clips'][state][0]
-    assert len({f.tobytes() for f in played})>=3
+    assert len({f.tobytes() for f in played})==n, 'Every walking pose must be distinct.'
     eye=[eye_center(f) for f in played]
-    pairs=list(zip(range(n),list(range(1,n))+[0])) if clip['loop'] else list(zip(range(n-1),range(1,n)))
+    pairs=list(zip(range(n),list(range(1,n))+[0]))
     foot_step=max(math.dist(poses[a]['feet'][j]['ankle'],poses[b]['feet'][j]['ankle']) for a,b in pairs for j in [0,1])
     knee_step=max(math.dist(poses[a]['knees'][j],poses[b]['knees'][j]) for a,b in pairs for j in [0,1])
     eye_step=max(math.dist(eye[a],eye[b]) for a,b in pairs)
-    assert foot_step<4.2,(name,'foot snap',foot_step)
-    assert knee_step<7.5,(name,'knee snap',knee_step)
-    assert eye_step<2,(name,'rendered head snap',eye_step)
+    # Normalize motion checks by time so the limits do not depend on frame density.
+    assert foot_step*fps<150,(name,'foot speed',foot_step*fps)
+    assert knee_step*fps<190,(name,'knee speed',knee_step*fps)
+    assert eye_step*fps<30,(name,'rendered head speed',eye_step*fps)
     for p in poses:
         for j,f in enumerate(p['feet']):
             for a,b in [(p['hips'][j],p['knees'][j]),(p['knees'][j],f['ankle'])]:
@@ -91,20 +88,13 @@ for name,clip in animation['clips'].items():
             assert f['ankle'][1]<=115+1e-8,'Foot target penetrates the ground.'
             if f['stance']:
                 assert abs(f['ankle'][1]-115)<1e-8 and abs(f['angle'])<1e-8
-    if name=='idle':
-        assert foot_step==0
-        # Actual rendered sole pixels stay fixed, not only the rig coordinates.
-        sole=[f.crop((25,116,115,123)).tobytes() for f in played]
-        assert len(set(sole))==1,'Idle soles visibly move.'
-    if name in ['walk','run']:
-        for j in [0,1]:
-            assert any(not p['feet'][j]['stance'] for p in poses)
-            for a,b in pairs:
-                fa,fb=poses[a]['feet'][j],poses[b]['feet'][j]
-                if fa['stance'] and fb['stance']:
-                    assert fb['ankle'][0]<fa['ankle'][0], 'Grounded foot resets forward.'
-        airborne=any(all(not f['stance'] for f in p['feet']) for p in poses)
-        assert airborne==(name=='run')
+    for j in [0,1]:
+        assert any(not p['feet'][j]['stance'] for p in poses)
+        for a,b in pairs:
+            fa,fb=poses[a]['feet'][j],poses[b]['feet'][j]
+            if fa['stance'] and fb['stance']:
+                assert fb['ankle'][0]<fa['ankle'][0], 'Grounded foot resets forward.'
+    assert all(any(f['stance'] for f in p['feet']) for p in poses), 'Walking needs a supporting foot.'
     report[name]={'frames':n,'durationSeconds':duration,'maxFootTargetStepPx':round(foot_step,4),
                   'maxKneeStepPx':round(knee_step,4),'maxRenderedEyeStepPx':round(eye_step,4),
                   'eyeVerticalRangePx':round(max(p[1] for p in eye)-min(p[1] for p in eye),4)}
@@ -112,7 +102,7 @@ for name,clip in animation['clips'].items():
 out=root/'artifacts/asset-check';out.mkdir(parents=True,exist_ok=True)
 # Every frame at 16/24/32 pixel display height, with enough rows to avoid clipping.
 for name,clip in animation['clips'].items():
-    cols=12;rows=(len(clip['frames'])+cols-1)//cols
+    cols=8;rows=(len(clip['frames'])+cols-1)//cols
     sheet=Image.new('RGB',(cols*74,rows*104),'#eeeeee');d=ImageDraw.Draw(sheet)
     for i,index in enumerate(clip['frames']):
         x=i%cols*74;y=i//cols*104;d.text((x+4,y+2),str(i+1),fill='black')

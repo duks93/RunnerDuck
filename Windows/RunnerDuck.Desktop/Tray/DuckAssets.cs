@@ -35,7 +35,7 @@ internal static class DuckAssets
     public static Bitmap LoadThumbnail(RunnerKind kind = RunnerKind.Duck)
     {
         using var atlas = LoadAtlas(kind);
-        return LoadFrame(atlas, Animation.Frames[Animation.Clips["idle"].Frames[0]]);
+        return LoadFrame(atlas, Animation.Frames[Animation.Clips["walk"].Frames[0]]);
     }
 
     private static Bitmap LoadAtlas(RunnerKind kind)

@@ -4,7 +4,7 @@ A duck that walks by default and runs as CPU load rises. RunnerDuck keeps system
 
 ![RunnerDuck](artwork/duck/icon.png)
 
-![Idle, walk, run, and transitions](artwork/duck/motion-demo.gif)
+![Eight-frame walking loop](artwork/duck/walk.gif)
 
 The built-in runners are **Duck** (`duck`), whose outline follows the system theme, and **Duck (White)** (`duck-filled`), with a white body and black outline. Both walk by default and share the same load-driven animation. Select either runner from the runner menu on Windows or macOS. The app icon is yellow. Generated poses and in-betweens are bundled locally. No image generation happens while the app runs.
 
@@ -157,7 +157,7 @@ xcodebuild test -scheme LocalPackage-Package -destination 'platform=macOS' \
 
 Choose **Small**, **Standard**, or **Large** under **Settings > Runner > Appearance > Runner size** on either platform. Changes apply immediately and are saved across restarts. macOS uses 14, 18, or 22 point menu bar images. Windows uses 75%, 100%, or 125% zoom inside the system's fixed tray icon area; Large can crop the edges, and the settings preview shows that crop.
 
-The duck walks by default, including before the first CPU sample and at low CPU load. CPU load is smoothed with a two-second time constant. Run starts at 60% and returns to walk at 55%. State changes wait for a connecting pose and play a 300ms transition. The reverse-load setting applies to both states and playback speed.
+The duck repeats one eight-frame walking loop, including before the first CPU sample and at low CPU load. CPU load is smoothed with a two-second time constant and changes playback continuously from 0.8× to 2× (6.4–16 frames per second). Speed changes preserve the current pose. The reverse-load setting reverses the speed response.
 
 - [Custom runners](docs/CustomRunners.md)
 - [Custom metrics schema and examples](docs/CustomMetricsSchema.md)

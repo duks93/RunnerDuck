@@ -28,3 +28,6 @@ artifacts/
 __pycache__/
 *.pyc
 *.raw.png
+/artwork/duck/validation.json
+/artwork/duck/layer-validation.json
+/artwork/duck/engine-motion-validation.json
