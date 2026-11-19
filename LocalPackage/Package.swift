@@ -30,7 +30,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-async-algorithms.git", exact: "1.1.7"),
         .package(url: "https://github.com/apple/swift-log.git", exact: "1.16.1"),
         .package(url: "https://github.com/Kyome22/AllocatedUnfairLock.git", exact: "1.0.0"),
-        .package(url: "https://github.com/Kyome22/SystemInfoKit.git", exact: "7.2.2"),
+        .package(url: "https://github.com/Kyome22/SystemInfoKit.git", exact: "8.0.0"),
     ],
     targets: [
         .target(
